@@ -1,0 +1,60 @@
+object frmGetStarted: TfrmGetStarted
+  Left = 0
+  Top = 0
+  Caption = 'frmGetStarted'
+  ClientHeight = 703
+  ClientWidth = 393
+  Position = MainFormCenter
+  StyleBook = frmMain.StyleBook1
+  FormFactor.Width = 320
+  FormFactor.Height = 480
+  FormFactor.Devices = [Desktop]
+  OnCreate = FormCreate
+  DesignerMasterStyle = 0
+  object LayoutGetStarted: TLayout
+    Align = Client
+    Size.Width = 393.000000000000000000
+    Size.Height = 703.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 0
+    object PanelBackGround: TPanel
+      Align = Contents
+      Size.Width = 393.000000000000000000
+      Size.Height = 703.000000000000000000
+      Size.PlatformDefault = False
+      StyleLookup = 'PanelGetStartedStyle'
+      TabOrder = 0
+      object LayoutButtons: TLayout
+        Align = MostBottom
+        Position.Y = 603.000000000000000000
+        Size.Width = 393.000000000000000000
+        Size.Height = 100.000000000000000000
+        Size.PlatformDefault = False
+        TabOrder = 0
+        object rButtonsBG: TRectangle
+          Align = Contents
+          Fill.Color = claBlack
+          HitTest = False
+          Opacity = 0.500000000000000000
+          Size.Width = 393.000000000000000000
+          Size.Height = 100.000000000000000000
+          Size.PlatformDefault = False
+        end
+        object btnGetStarted: TButton
+          Align = VertCenter
+          Margins.Left = 20.000000000000000000
+          Margins.Right = 20.000000000000000000
+          Position.X = 20.000000000000000000
+          Position.Y = 32.000000000000000000
+          Size.Width = 353.000000000000000000
+          Size.Height = 35.000000000000000000
+          Size.PlatformDefault = False
+          StyleLookup = 'ButtonGetStartedStyle'
+          TabOrder = 1
+          Text = 'Get Started'
+          OnClick = btnGetStartedClick
+        end
+      end
+    end
+  end
+end

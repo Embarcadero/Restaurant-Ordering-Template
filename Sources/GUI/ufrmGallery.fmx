@@ -1,0 +1,63 @@
+object frmGallery: TfrmGallery
+  Left = 0
+  Top = 0
+  Caption = 'frmGallery'
+  ClientHeight = 703
+  ClientWidth = 393
+  Position = MainFormCenter
+  StyleBook = frmMain.StyleBook1
+  FormFactor.Width = 320
+  FormFactor.Height = 480
+  FormFactor.Devices = [Desktop]
+  OnCreate = FormCreate
+  DesignerMasterStyle = 0
+  object LayoutContent: TLayout
+    Align = Client
+    Size.Width = 393.000000000000000000
+    Size.Height = 703.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 0
+    object lbGallery: TListBox
+      Align = Client
+      Size.Width = 393.000000000000000000
+      Size.Height = 703.000000000000000000
+      Size.PlatformDefault = False
+      StyleLookup = 'ListboxWhiteNoSelStyle'
+      TabOrder = 0
+      Columns = 3
+      DisableFocusEffect = True
+      DefaultItemStyles.ItemStyle = ''
+      DefaultItemStyles.GroupHeaderStyle = ''
+      DefaultItemStyles.GroupFooterStyle = ''
+      OnItemClick = lbGalleryItemClick
+      Viewport.Width = 389.000000000000000000
+      Viewport.Height = 699.000000000000000000
+      object ListBoxItem1: TListBoxItem
+        Size.Width = 129.000000000000000000
+        Size.Height = 127.000000000000000000
+        Size.PlatformDefault = False
+        StyleLookup = 'ListboxItemGalleryStyle'
+        TabOrder = 0
+        Text = 'ListBoxItem1'
+      end
+      object ListBoxItem2: TListBoxItem
+        Position.X = 129.000000000000000000
+        Size.Width = 129.000000000000000000
+        Size.Height = 127.000000000000000000
+        Size.PlatformDefault = False
+        StyleLookup = 'ListboxItemGalleryStyle'
+        TabOrder = 1
+        Text = 'ListBoxItem2'
+      end
+      object ListBoxItem3: TListBoxItem
+        Position.X = 258.000000000000000000
+        Size.Width = 129.000000000000000000
+        Size.Height = 127.000000000000000000
+        Size.PlatformDefault = False
+        StyleLookup = 'ListboxItemGalleryStyle'
+        TabOrder = 2
+        Text = 'ListBoxItem3'
+      end
+    end
+  end
+end

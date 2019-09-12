@@ -1,0 +1,68 @@
+object frmOptionsList: TfrmOptionsList
+  Left = 0
+  Top = 0
+  Caption = 'frmOptionsList'
+  ClientHeight = 703
+  ClientWidth = 393
+  Position = MainFormCenter
+  StyleBook = frmMain.StyleBook1
+  FormFactor.Width = 320
+  FormFactor.Height = 480
+  FormFactor.Devices = [Desktop]
+  OnClose = FormClose
+  OnShow = FormShow
+  DesignerMasterStyle = 0
+  object lbOptions: TListBox
+    Align = Client
+    Margins.Left = 10.000000000000000000
+    Margins.Right = 10.000000000000000000
+    Size.Width = 373.000000000000000000
+    Size.Height = 653.000000000000000000
+    Size.PlatformDefault = False
+    StyleLookup = 'ListboxWhiteNoSelStyle'
+    TabOrder = 0
+    DisableFocusEffect = True
+    DefaultItemStyles.ItemStyle = ''
+    DefaultItemStyles.GroupHeaderStyle = ''
+    DefaultItemStyles.GroupFooterStyle = ''
+    OnItemClick = lbOptionsItemClick
+    Viewport.Width = 369.000000000000000000
+    Viewport.Height = 649.000000000000000000
+    object ListBoxItem1: TListBoxItem
+      Size.Width = 369.000000000000000000
+      Size.Height = 35.000000000000000000
+      Size.PlatformDefault = False
+      StyleLookup = 'ListboxItemMenuItemOptionsStyle'
+      TabOrder = 0
+      Text = 'ListBoxItem1'
+    end
+  end
+  object tbMain: TToolBar
+    Size.Width = 393.000000000000000000
+    Size.Height = 50.000000000000000000
+    Size.PlatformDefault = False
+    StyleLookup = 'ToolBarWhiteStyle'
+    TabOrder = 6
+    object btnBack: TButton
+      Align = Left
+      StyledSettings = [Family, Size, Style]
+      IconTintColor = xFF585858
+      ImageIndex = 0
+      Size.Width = 80.000000000000000000
+      Size.Height = 50.000000000000000000
+      Size.PlatformDefault = False
+      StyleLookup = 'ButtonMenuBackStyle'
+      TabOrder = 0
+      Text = 'Back'
+      TextSettings.FontColor = xFF272727
+      OnClick = btnBackClick
+    end
+  end
+  object tRebuilForm: TTimer
+    Enabled = False
+    Interval = 50
+    OnTimer = tRebuilFormTimer
+    Left = 184
+    Top = 336
+  end
+end

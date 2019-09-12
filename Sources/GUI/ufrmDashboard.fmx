@@ -1,0 +1,230 @@
+object frmDashboard: TfrmDashboard
+  Left = 0
+  Top = 0
+  Caption = 'frmDashboard'
+  ClientHeight = 703
+  ClientWidth = 393
+  Position = MainFormCenter
+  StyleBook = frmMain.StyleBook1
+  FormFactor.Width = 320
+  FormFactor.Height = 480
+  FormFactor.Devices = [Desktop]
+  OnCreate = FormCreate
+  DesignerMasterStyle = 0
+  object LayoutDashboard: TLayout
+    Align = Client
+    Size.Width = 393.000000000000000000
+    Size.Height = 703.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 0
+    object PanelBackGround: TPanel
+      Align = Contents
+      Size.Width = 393.000000000000000000
+      Size.Height = 703.000000000000000000
+      Size.PlatformDefault = False
+      StyleLookup = 'PanelDashboardStyle'
+      TabOrder = 0
+    end
+    object tbMain: TToolBar
+      Align = MostTop
+      Opacity = 0.600000023841857900
+      Size.Width = 393.000000000000000000
+      Size.Height = 50.000000000000000000
+      Size.PlatformDefault = False
+      StyleLookup = 'ToolBarWhiteStyle'
+      TabOrder = 8
+      object btnMenu: TButton
+        Align = MostLeft
+        IconTintColor = xFF631F70
+        Size.Width = 48.000000000000000000
+        Size.Height = 50.000000000000000000
+        Size.PlatformDefault = False
+        StyleLookup = 'ButtonMenuMenuStyle'
+        TabOrder = 1
+        Text = 'MenuBTN'
+      end
+      object btnBack: TButton
+        Align = Left
+        IconTintColor = xFF631F70
+        ImageIndex = 0
+        Position.X = 48.000000000000000000
+        Size.Width = 48.000000000000000000
+        Size.Height = 50.000000000000000000
+        Size.PlatformDefault = False
+        StyleLookup = 'ButtonMenuBackStyle'
+        TabOrder = 0
+        Text = 'btnBack'
+      end
+    end
+    object gplTopButtons: TGridPanelLayout
+      Align = Top
+      Margins.Top = 30.000000000000000000
+      Position.Y = 80.000000000000000000
+      Size.Width = 393.000000000000000000
+      Size.Height = 50.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 10
+      ColumnCollection = <
+        item
+          Value = 33.578075820426200000
+        end
+        item
+          Value = 33.239272405843550000
+        end
+        item
+          Value = 33.182651773730260000
+        end>
+      ControlCollection = <
+        item
+          Column = 0
+          Control = btnGallery
+          Row = 0
+        end
+        item
+          Column = 1
+          Control = btnCoupons
+          Row = 0
+        end
+        item
+          Column = 2
+          Control = btnAccount
+          Row = 0
+        end>
+      RowCollection = <
+        item
+          Value = 100.000000000000000000
+        end
+        item
+          SizeStyle = Auto
+        end>
+      object btnGallery: TButton
+        Align = Client
+        Opacity = 0.800000011920929000
+        Margins.Left = 10.000000000000000000
+        Margins.Top = 5.000000000000000000
+        Margins.Right = 5.000000000000000000
+        Margins.Bottom = 5.000000000000000000
+        Size.Width = 116.961837768554700000
+        Size.Height = 40.000000000000000000
+        Size.PlatformDefault = False
+        StyleLookup = 'ButtonDashboardStyle'
+        TabOrder = 2
+        Text = 'btnGallery'
+      end
+      object btnCoupons: TButton
+        Align = Client
+        Opacity = 0.800000011920929000
+        Margins.Left = 5.000000000000000000
+        Margins.Top = 5.000000000000000000
+        Margins.Right = 5.000000000000000000
+        Margins.Bottom = 5.000000000000000000
+        Size.Width = 120.630325317382800000
+        Size.Height = 40.000000000000000000
+        Size.PlatformDefault = False
+        StyleLookup = 'ButtonDashboardStyle'
+        TabOrder = 1
+        Text = 'btnCoupons'
+      end
+      object btnAccount: TButton
+        Align = Client
+        Opacity = 0.800000011920929000
+        Margins.Left = 5.000000000000000000
+        Margins.Top = 5.000000000000000000
+        Margins.Right = 10.000000000000000000
+        Margins.Bottom = 5.000000000000000000
+        Size.Width = 115.407836914062500000
+        Size.Height = 40.000000000000000000
+        Size.PlatformDefault = False
+        StyleLookup = 'ButtonDashboardStyle'
+        TabOrder = 0
+        Text = 'btnAccount'
+      end
+    end
+    object gblBottomButtons: TGridPanelLayout
+      Align = Bottom
+      Margins.Bottom = 50.000000000000000000
+      Position.Y = 603.000000000000000000
+      Size.Width = 393.000000000000000000
+      Size.Height = 50.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 9
+      ColumnCollection = <
+        item
+          Value = 33.578075820426200000
+        end
+        item
+          Value = 33.239272405843550000
+        end
+        item
+          Value = 33.182651773730260000
+        end>
+      ControlCollection = <
+        item
+          Column = 0
+          Control = btnCallUs
+          Row = 0
+        end
+        item
+          Column = 1
+          Control = btnEmailUs
+          Row = 0
+        end
+        item
+          Column = 2
+          Control = btnDirections
+          Row = 0
+        end>
+      RowCollection = <
+        item
+          Value = 100.000000000000000000
+        end
+        item
+          SizeStyle = Auto
+        end>
+      object btnCallUs: TButton
+        Align = Client
+        Opacity = 0.800000011920929000
+        Margins.Left = 10.000000000000000000
+        Margins.Top = 5.000000000000000000
+        Margins.Right = 5.000000000000000000
+        Margins.Bottom = 5.000000000000000000
+        Size.Width = 116.961837768554700000
+        Size.Height = 40.000000000000000000
+        Size.PlatformDefault = False
+        StyleLookup = 'ButtonDashboardStyle'
+        TabOrder = 2
+        Text = 'btnCallUs'
+        OnClick = btnCallUsClick
+      end
+      object btnEmailUs: TButton
+        Align = Client
+        Opacity = 0.800000011920929000
+        Margins.Left = 5.000000000000000000
+        Margins.Top = 5.000000000000000000
+        Margins.Right = 5.000000000000000000
+        Margins.Bottom = 5.000000000000000000
+        Size.Width = 120.630325317382800000
+        Size.Height = 40.000000000000000000
+        Size.PlatformDefault = False
+        StyleLookup = 'ButtonDashboardStyle'
+        TabOrder = 1
+        Text = 'btnEmailUs'
+        OnClick = btnEmailUsClick
+      end
+      object btnDirections: TButton
+        Align = Client
+        Opacity = 0.800000011920929000
+        Margins.Left = 5.000000000000000000
+        Margins.Top = 5.000000000000000000
+        Margins.Right = 10.000000000000000000
+        Margins.Bottom = 5.000000000000000000
+        Size.Width = 115.407836914062500000
+        Size.Height = 40.000000000000000000
+        Size.PlatformDefault = False
+        StyleLookup = 'ButtonDashboardStyle'
+        TabOrder = 0
+        Text = 'btnAccount'
+      end
+    end
+  end
+end

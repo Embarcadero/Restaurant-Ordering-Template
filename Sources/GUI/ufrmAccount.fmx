@@ -1,0 +1,361 @@
+object frmAccount: TfrmAccount
+  Left = 0
+  Top = 0
+  Caption = 'frmAccount'
+  ClientHeight = 703
+  ClientWidth = 393
+  Position = MainFormCenter
+  StyleBook = frmMain.StyleBook1
+  FormFactor.Width = 320
+  FormFactor.Height = 480
+  FormFactor.Devices = [Desktop]
+  OnCreate = FormCreate
+  DesignerMasterStyle = 0
+  object LayoutContent: TLayout
+    Align = Client
+    Size.Width = 393.000000000000000000
+    Size.Height = 703.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 5
+    object VertScrollBox1: TVertScrollBox
+      Align = Client
+      Size.Width = 393.000000000000000000
+      Size.Height = 703.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 0
+      Viewport.Width = 393.000000000000000000
+      Viewport.Height = 703.000000000000000000
+      object GridPanelLayout1: TGridPanelLayout
+        Align = Top
+        Size.Width = 393.000000000000000000
+        Size.Height = 703.000000000000000000
+        Size.PlatformDefault = False
+        TabOrder = 0
+        ColumnCollection = <
+          item
+            Value = 100.000000000000000000
+          end>
+        ControlCollection = <
+          item
+            Column = 0
+            Control = LayoutName
+            Row = 0
+          end
+          item
+            Column = 0
+            Control = Layout2Phone
+            Row = 1
+          end
+          item
+            Column = 0
+            Control = LayoutEmail
+            Row = 2
+          end
+          item
+            Column = 0
+            Control = LayoutPassword
+            Row = 3
+          end
+          item
+            Column = 0
+            Control = LayoutAddress
+            Row = 4
+          end
+          item
+            Column = 0
+            Control = LayoutZipCode
+            Row = 5
+          end
+          item
+            Column = 0
+            Control = LayoutbtnCreateAccount
+            Row = 6
+          end>
+        RowCollection = <
+          item
+            SizeStyle = Absolute
+            Value = 80.000000000000000000
+          end
+          item
+            SizeStyle = Absolute
+            Value = 80.000000000000000000
+          end
+          item
+            SizeStyle = Absolute
+            Value = 80.000000000000000000
+          end
+          item
+            SizeStyle = Absolute
+            Value = 135.000000000000000000
+          end
+          item
+            SizeStyle = Absolute
+            Value = 80.000000000000000000
+          end
+          item
+            SizeStyle = Absolute
+            Value = 80.000000000000000000
+          end
+          item
+            SizeStyle = Absolute
+            Value = 100.000000000000000000
+          end
+          item
+            SizeStyle = Auto
+          end>
+        object LayoutName: TLayout
+          Align = Client
+          Size.Width = 393.000000000000000000
+          Size.Height = 80.000000000000000000
+          Size.PlatformDefault = False
+          TabOrder = 5
+          object lName: TLabel
+            Align = MostTop
+            Margins.Left = 10.000000000000000000
+            Margins.Top = 10.000000000000000000
+            Margins.Right = 10.000000000000000000
+            Position.X = 10.000000000000000000
+            Position.Y = 10.000000000000000000
+            Size.Width = 373.000000000000000000
+            Size.Height = 25.000000000000000000
+            Size.PlatformDefault = False
+            StyleLookup = 'Label18Style'
+            Text = 'lName'
+            TabOrder = 0
+          end
+          object eName: TEdit
+            Touch.InteractiveGestures = [LongTap, DoubleTap]
+            Align = Client
+            StyleLookup = 'EditGrayPromptStyle'
+            TabOrder = 1
+            Margins.Left = 10.000000000000000000
+            Margins.Top = 5.000000000000000000
+            Margins.Right = 10.000000000000000000
+            Margins.Bottom = 5.000000000000000000
+            Size.Width = 373.000000000000000000
+            Size.Height = 35.000000000000000000
+            Size.PlatformDefault = False
+            KillFocusByReturn = True
+          end
+        end
+        object Layout2Phone: TLayout
+          Align = Client
+          Size.Width = 393.000000000000000000
+          Size.Height = 80.000000000000000000
+          Size.PlatformDefault = False
+          TabOrder = 4
+          object ePhone: TEdit
+            Touch.InteractiveGestures = [LongTap, DoubleTap]
+            Align = Client
+            StyleLookup = 'EditGrayPromptStyle'
+            TabOrder = 1
+            KeyboardType = NamePhonePad
+            Margins.Left = 10.000000000000000000
+            Margins.Top = 5.000000000000000000
+            Margins.Right = 10.000000000000000000
+            Margins.Bottom = 5.000000000000000000
+            Size.Width = 373.000000000000000000
+            Size.Height = 35.000000000000000000
+            Size.PlatformDefault = False
+            KillFocusByReturn = True
+          end
+          object lPhone: TLabel
+            Align = MostTop
+            Margins.Left = 10.000000000000000000
+            Margins.Top = 10.000000000000000000
+            Margins.Right = 10.000000000000000000
+            Position.X = 10.000000000000000000
+            Position.Y = 10.000000000000000000
+            Size.Width = 373.000000000000000000
+            Size.Height = 25.000000000000000000
+            Size.PlatformDefault = False
+            StyleLookup = 'Label18Style'
+            Text = 'lPhone'
+            TabOrder = 0
+          end
+        end
+        object LayoutEmail: TLayout
+          Align = Client
+          Size.Width = 393.000000000000000000
+          Size.Height = 80.000000000000000000
+          Size.PlatformDefault = False
+          TabOrder = 3
+          object lEmail: TLabel
+            Align = MostTop
+            Margins.Left = 10.000000000000000000
+            Margins.Top = 10.000000000000000000
+            Margins.Right = 10.000000000000000000
+            Position.X = 10.000000000000000000
+            Position.Y = 10.000000000000000000
+            Size.Width = 373.000000000000000000
+            Size.Height = 25.000000000000000000
+            Size.PlatformDefault = False
+            StyleLookup = 'Label18Style'
+            Text = 'lEmail'
+            TabOrder = 0
+          end
+          object eEmail: TEdit
+            Touch.InteractiveGestures = [LongTap, DoubleTap]
+            Align = Client
+            StyleLookup = 'EditGrayPromptStyle'
+            TabOrder = 1
+            Margins.Left = 10.000000000000000000
+            Margins.Top = 5.000000000000000000
+            Margins.Right = 10.000000000000000000
+            Margins.Bottom = 5.000000000000000000
+            Size.Width = 373.000000000000000000
+            Size.Height = 35.000000000000000000
+            Size.PlatformDefault = False
+            KillFocusByReturn = True
+          end
+        end
+        object LayoutPassword: TLayout
+          Align = Client
+          Size.Width = 393.000000000000000000
+          Size.Height = 135.000000000000000000
+          Size.PlatformDefault = False
+          TabOrder = 2
+          object lPassword: TLabel
+            Align = MostTop
+            Margins.Left = 10.000000000000000000
+            Margins.Top = 10.000000000000000000
+            Margins.Right = 10.000000000000000000
+            Position.X = 10.000000000000000000
+            Position.Y = 10.000000000000000000
+            Size.Width = 373.000000000000000000
+            Size.Height = 25.000000000000000000
+            Size.PlatformDefault = False
+            StyleLookup = 'Label18Style'
+            Text = 'lPassword'
+            TabOrder = 1
+          end
+          object ePassword: TEdit
+            Touch.InteractiveGestures = [LongTap, DoubleTap]
+            Align = Top
+            StyleLookup = 'EditGrayPromptStyle'
+            TabOrder = 2
+            Password = True
+            Position.X = 10.000000000000000000
+            Position.Y = 40.000000000000000000
+            Margins.Left = 10.000000000000000000
+            Margins.Top = 5.000000000000000000
+            Margins.Right = 10.000000000000000000
+            Margins.Bottom = 5.000000000000000000
+            Size.Width = 373.000000000000000000
+            Size.Height = 35.000000000000000000
+            Size.PlatformDefault = False
+            KillFocusByReturn = True
+          end
+          object ePassword2: TEdit
+            Touch.InteractiveGestures = [LongTap, DoubleTap]
+            Align = Bottom
+            StyleLookup = 'EditGrayPromptStyle'
+            TabOrder = 0
+            Password = True
+            Position.X = 10.000000000000000000
+            Position.Y = 95.000000000000000000
+            Margins.Left = 10.000000000000000000
+            Margins.Top = 5.000000000000000000
+            Margins.Right = 10.000000000000000000
+            Margins.Bottom = 5.000000000000000000
+            Size.Width = 373.000000000000000000
+            Size.Height = 35.000000000000000000
+            Size.PlatformDefault = False
+            KillFocusByReturn = True
+          end
+        end
+        object LayoutAddress: TLayout
+          Align = Client
+          Size.Width = 393.000000000000000000
+          Size.Height = 80.000000000000000000
+          Size.PlatformDefault = False
+          TabOrder = 1
+          object lAddress: TLabel
+            Align = MostTop
+            Margins.Left = 10.000000000000000000
+            Margins.Top = 10.000000000000000000
+            Margins.Right = 10.000000000000000000
+            Position.X = 10.000000000000000000
+            Position.Y = 10.000000000000000000
+            Size.Width = 373.000000000000000000
+            Size.Height = 25.000000000000000000
+            Size.PlatformDefault = False
+            StyleLookup = 'Label18Style'
+            Text = 'lAddress'
+            TabOrder = 2
+          end
+          object eAddress: TEdit
+            Touch.InteractiveGestures = [LongTap, DoubleTap]
+            Align = Client
+            StyleLookup = 'EditGrayPromptStyle'
+            TabOrder = 1
+            Margins.Left = 10.000000000000000000
+            Margins.Top = 5.000000000000000000
+            Margins.Right = 10.000000000000000000
+            Margins.Bottom = 5.000000000000000000
+            Size.Width = 373.000000000000000000
+            Size.Height = 35.000000000000000000
+            Size.PlatformDefault = False
+            KillFocusByReturn = True
+          end
+        end
+        object LayoutZipCode: TLayout
+          Align = Client
+          Size.Width = 393.000000000000000000
+          Size.Height = 80.000000000000000000
+          Size.PlatformDefault = False
+          TabOrder = 0
+          object lZipCode: TLabel
+            Align = MostTop
+            Margins.Left = 10.000000000000000000
+            Margins.Top = 10.000000000000000000
+            Margins.Right = 10.000000000000000000
+            Position.X = 10.000000000000000000
+            Position.Y = 10.000000000000000000
+            Size.Width = 373.000000000000000000
+            Size.Height = 25.000000000000000000
+            Size.PlatformDefault = False
+            StyleLookup = 'Label18Style'
+            Text = 'lZipCode'
+            TabOrder = 0
+          end
+          object eZipCode: TEdit
+            Touch.InteractiveGestures = [LongTap, DoubleTap]
+            Align = Client
+            StyleLookup = 'EditGrayPromptStyle'
+            TabOrder = 1
+            KeyboardType = NumberPad
+            Margins.Left = 10.000000000000000000
+            Margins.Top = 5.000000000000000000
+            Margins.Right = 10.000000000000000000
+            Margins.Bottom = 5.000000000000000000
+            Size.Width = 373.000000000000000000
+            Size.Height = 35.000000000000000000
+            Size.PlatformDefault = False
+            KillFocusByReturn = True
+          end
+        end
+        object LayoutbtnCreateAccount: TLayout
+          Align = Client
+          Size.Width = 393.000000000000000000
+          Size.Height = 100.000000000000000000
+          Size.PlatformDefault = False
+          TabOrder = 6
+          object btnCreateAccount: TButton
+            Align = VertCenter
+            Margins.Left = 20.000000000000000000
+            Margins.Right = 20.000000000000000000
+            Position.X = 20.000000000000000000
+            Position.Y = 32.000000000000000000
+            Size.Width = 353.000000000000000000
+            Size.Height = 35.000000000000000000
+            Size.PlatformDefault = False
+            StyleLookup = 'ButtonGetStartedStyle'
+            TabOrder = 1
+            Text = 'Save Account Info'
+          end
+        end
+      end
+    end
+  end
+end

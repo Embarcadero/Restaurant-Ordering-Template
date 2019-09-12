@@ -1,0 +1,404 @@
+object frmCart: TfrmCart
+  Left = 0
+  Top = 0
+  Caption = 'frmCart'
+  ClientHeight = 703
+  ClientWidth = 393
+  Position = MainFormCenter
+  StyleBook = frmMain.StyleBook1
+  FormFactor.Width = 320
+  FormFactor.Height = 480
+  FormFactor.Devices = [Desktop]
+  OnCreate = FormCreate
+  DesignerMasterStyle = 0
+  object LayoutContent: TLayout
+    Align = Client
+    Size.Width = 393.000000000000000000
+    Size.Height = 703.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 0
+    object VertScrollBox1: TVertScrollBox
+      Align = Client
+      Size.Width = 393.000000000000000000
+      Size.Height = 703.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 0
+      Viewport.Width = 393.000000000000000000
+      Viewport.Height = 703.000000000000000000
+      object gplCart: TGridPanelLayout
+        Align = Top
+        Size.Width = 393.000000000000000000
+        Size.Height = 700.000000000000000000
+        Size.PlatformDefault = False
+        TabOrder = 0
+        ColumnCollection = <
+          item
+            Value = 100.000000000000000000
+          end>
+        ControlCollection = <
+          item
+            Column = 0
+            Control = LayoutCart
+            Row = 0
+          end
+          item
+            Column = 0
+            Control = Layout1
+            Row = 1
+          end
+          item
+            Column = 0
+            Control = Layout2
+            Row = 2
+          end
+          item
+            Column = 0
+            Control = Layout3
+            Row = 3
+          end
+          item
+            Column = 0
+            Control = Layout4
+            Row = 4
+          end
+          item
+            Column = 0
+            Control = Layout5
+            Row = 5
+          end
+          item
+            Column = 0
+            Control = Layout6
+            Row = 6
+          end
+          item
+            Column = 0
+            Control = Layout9
+            Row = 7
+          end>
+        RowCollection = <
+          item
+            SizeStyle = Absolute
+            Value = 124.000000000000000000
+          end
+          item
+            SizeStyle = Absolute
+            Value = 50.000000000000000000
+          end
+          item
+            SizeStyle = Absolute
+            Value = 50.000000000000000000
+          end
+          item
+            SizeStyle = Absolute
+            Value = 50.000000000000000000
+          end
+          item
+            SizeStyle = Absolute
+            Value = 50.000000000000000000
+          end
+          item
+            SizeStyle = Absolute
+            Value = 70.000000000000000000
+          end
+          item
+            SizeStyle = Absolute
+            Value = 100.000000000000000000
+          end
+          item
+            SizeStyle = Absolute
+            Value = 80.000000000000000000
+          end
+          item
+            SizeStyle = Auto
+          end>
+        object LayoutCart: TLayout
+          Align = Client
+          Size.Width = 393.000000000000000000
+          Size.Height = 124.000000000000000000
+          Size.PlatformDefault = False
+          TabOrder = 6
+          object lbCart: TListBox
+            Align = Client
+            HitTest = False
+            Margins.Left = 10.000000000000000000
+            Margins.Right = 10.000000000000000000
+            Size.Width = 373.000000000000000000
+            Size.Height = 124.000000000000000000
+            Size.PlatformDefault = False
+            StyleLookup = 'ListboxWhiteNoSelStyle'
+            TabOrder = 1
+            DisableFocusEffect = True
+            DefaultItemStyles.ItemStyle = ''
+            DefaultItemStyles.GroupHeaderStyle = ''
+            DefaultItemStyles.GroupFooterStyle = ''
+            Viewport.Width = 373.000000000000000000
+            Viewport.Height = 124.000000000000000000
+            object ListBoxItem1: TListBoxItem
+              Size.Width = 369.000000000000000000
+              Size.Height = 120.000000000000000000
+              Size.PlatformDefault = False
+              StyleLookup = 'ListboxItemCartStyle'
+              TabOrder = 0
+              Text = 'ListBoxItem1'
+            end
+          end
+        end
+        object Layout1: TLayout
+          Align = Client
+          Size.Width = 393.000000000000000000
+          Size.Height = 50.000000000000000000
+          Size.PlatformDefault = False
+          TabOrder = 5
+          object tOfferAmount: TText
+            Align = Right
+            HitTest = False
+            Margins.Right = 10.000000000000000000
+            Position.X = 293.000000000000000000
+            Size.Width = 90.000000000000000000
+            Size.Height = 50.000000000000000000
+            Size.PlatformDefault = False
+            Text = '-$7.60'
+            TextSettings.Font.Family = 'Arial'
+            TextSettings.Font.Size = 16.000000000000000000
+            TextSettings.FontColor = xFF868686
+            TextSettings.HorzAlign = Trailing
+          end
+          object tOffers: TText
+            Align = Client
+            HitTest = False
+            Margins.Left = 10.000000000000000000
+            Size.Width = 283.000000000000000000
+            Size.Height = 50.000000000000000000
+            Size.PlatformDefault = False
+            Text = 'fff'
+            TextSettings.Font.Family = 'Arial'
+            TextSettings.Font.Size = 16.000000000000000000
+            TextSettings.FontColor = xFF868686
+            TextSettings.HorzAlign = Leading
+          end
+        end
+        object Layout2: TLayout
+          Align = Client
+          Size.Width = 393.000000000000000000
+          Size.Height = 50.000000000000000000
+          Size.PlatformDefault = False
+          TabOrder = 4
+          object tSalesTax: TText
+            Align = Client
+            HitTest = False
+            Margins.Left = 10.000000000000000000
+            Size.Width = 283.000000000000000000
+            Size.Height = 50.000000000000000000
+            Size.PlatformDefault = False
+            Text = 'fff'
+            TextSettings.Font.Family = 'Arial'
+            TextSettings.Font.Size = 16.000000000000000000
+            TextSettings.FontColor = xFF868686
+            TextSettings.HorzAlign = Leading
+          end
+          object tSalesAmount: TText
+            Align = Right
+            HitTest = False
+            Margins.Right = 10.000000000000000000
+            Position.X = 293.000000000000000000
+            Size.Width = 90.000000000000000000
+            Size.Height = 50.000000000000000000
+            Size.PlatformDefault = False
+            Text = '-$7.60'
+            TextSettings.Font.Family = 'Arial'
+            TextSettings.Font.Size = 16.000000000000000000
+            TextSettings.FontColor = xFF868686
+            TextSettings.HorzAlign = Trailing
+          end
+        end
+        object Layout3: TLayout
+          Align = Client
+          Size.Width = 393.000000000000000000
+          Size.Height = 50.000000000000000000
+          Size.PlatformDefault = False
+          TabOrder = 3
+          object tSubTotal: TText
+            Align = Client
+            HitTest = False
+            Margins.Left = 10.000000000000000000
+            Size.Width = 283.000000000000000000
+            Size.Height = 50.000000000000000000
+            Size.PlatformDefault = False
+            Text = 'fff'
+            TextSettings.Font.Family = 'Arial'
+            TextSettings.Font.Size = 16.000000000000000000
+            TextSettings.FontColor = xFF868686
+            TextSettings.HorzAlign = Leading
+          end
+          object tSubTotalAmount: TText
+            Align = Right
+            HitTest = False
+            Margins.Right = 10.000000000000000000
+            Position.X = 293.000000000000000000
+            Size.Width = 90.000000000000000000
+            Size.Height = 50.000000000000000000
+            Size.PlatformDefault = False
+            Text = '-$7.60'
+            TextSettings.Font.Family = 'Arial'
+            TextSettings.Font.Size = 16.000000000000000000
+            TextSettings.FontColor = xFF868686
+            TextSettings.HorzAlign = Trailing
+          end
+        end
+        object Layout4: TLayout
+          Align = Client
+          Size.Width = 393.000000000000000000
+          Size.Height = 50.000000000000000000
+          Size.PlatformDefault = False
+          TabOrder = 2
+          object tDeliveryFee: TText
+            Align = Client
+            HitTest = False
+            Margins.Left = 10.000000000000000000
+            Size.Width = 283.000000000000000000
+            Size.Height = 50.000000000000000000
+            Size.PlatformDefault = False
+            Text = 'fff'
+            TextSettings.Font.Family = 'Arial'
+            TextSettings.Font.Size = 16.000000000000000000
+            TextSettings.FontColor = xFF868686
+            TextSettings.HorzAlign = Leading
+          end
+          object tDeliveryFeeAmount: TText
+            Align = Right
+            HitTest = False
+            Margins.Right = 10.000000000000000000
+            Position.X = 293.000000000000000000
+            Size.Width = 90.000000000000000000
+            Size.Height = 50.000000000000000000
+            Size.PlatformDefault = False
+            Text = '-$7.60'
+            TextSettings.Font.Family = 'Arial'
+            TextSettings.Font.Size = 16.000000000000000000
+            TextSettings.FontColor = xFF868686
+            TextSettings.HorzAlign = Trailing
+          end
+        end
+        object Layout5: TLayout
+          Align = Client
+          Size.Width = 393.000000000000000000
+          Size.Height = 70.000000000000000000
+          Size.PlatformDefault = False
+          TabOrder = 1
+          object eOrderNote: TEdit
+            Touch.InteractiveGestures = [LongTap, DoubleTap]
+            Align = Client
+            StyleLookup = 'EditPromptStyle'
+            TabOrder = 0
+            Margins.Left = 10.000000000000000000
+            Margins.Top = 10.000000000000000000
+            Margins.Right = 10.000000000000000000
+            Margins.Bottom = 10.000000000000000000
+            Size.Width = 373.000000000000000000
+            Size.Height = 50.000000000000000000
+            Size.PlatformDefault = False
+            TextPrompt = 'Add Note To Order?'
+          end
+        end
+        object Layout6: TLayout
+          Align = Client
+          Size.Width = 393.000000000000000000
+          Size.Height = 100.000000000000000000
+          Size.PlatformDefault = False
+          TabOrder = 0
+          object Layout7: TLayout
+            Align = Left
+            Size.Width = 196.000000000000000000
+            Size.Height = 100.000000000000000000
+            Size.PlatformDefault = False
+            TabOrder = 1
+            object tTotalWithCollAmount: TText
+              Align = MostBottom
+              HitTest = False
+              Position.Y = 65.000000000000000000
+              Size.Width = 196.000000000000000000
+              Size.Height = 35.000000000000000000
+              Size.PlatformDefault = False
+              Text = '$272.93'
+              TextSettings.Font.Family = 'Arial'
+              TextSettings.Font.Size = 17.000000000000000000
+              TextSettings.FontColor = xFF272727
+            end
+            object tTotalWithColl: TText
+              Align = Bottom
+              HitTest = False
+              Position.Y = 30.000000000000000000
+              Size.Width = 196.000000000000000000
+              Size.Height = 35.000000000000000000
+              Size.PlatformDefault = False
+              Text = 'Total with Collection'
+              TextSettings.Font.Family = 'Arial'
+              TextSettings.Font.Size = 14.000000000000000000
+              TextSettings.FontColor = xFF868686
+            end
+          end
+          object Layout8: TLayout
+            Align = Client
+            Size.Width = 197.000000000000000000
+            Size.Height = 100.000000000000000000
+            Size.PlatformDefault = False
+            TabOrder = 0
+            object tTotalwithDeliveryAmount: TText
+              Align = MostBottom
+              HitTest = False
+              Position.Y = 65.000000000000000000
+              Size.Width = 197.000000000000000000
+              Size.Height = 35.000000000000000000
+              Size.PlatformDefault = False
+              Text = '$272.93'
+              TextSettings.Font.Family = 'Arial'
+              TextSettings.Font.Size = 17.000000000000000000
+              TextSettings.FontColor = xFF272727
+            end
+            object tTotalwithDelivery: TText
+              Align = Bottom
+              HitTest = False
+              Position.Y = 30.000000000000000000
+              Size.Width = 197.000000000000000000
+              Size.Height = 35.000000000000000000
+              Size.PlatformDefault = False
+              Text = 'Total with Delivery'
+              TextSettings.Font.Family = 'Arial'
+              TextSettings.Font.Size = 14.000000000000000000
+              TextSettings.FontColor = xFF868686
+            end
+          end
+        end
+        object Layout9: TLayout
+          Align = Client
+          Size.Width = 393.000000000000000000
+          Size.Height = 80.000000000000000000
+          Size.PlatformDefault = False
+          TabOrder = 7
+          object btnCheckout: TButton
+            Align = VertCenter
+            Margins.Left = 20.000000000000000000
+            Margins.Right = 20.000000000000000000
+            Position.X = 20.000000000000000000
+            Position.Y = 22.000000000000000000
+            Size.Width = 353.000000000000000000
+            Size.Height = 35.000000000000000000
+            Size.PlatformDefault = False
+            StyleLookup = 'ButtonGetStartedStyle'
+            TabOrder = 1
+            Text = 'Checkout'
+            OnClick = btnCheckoutClick
+          end
+        end
+      end
+    end
+  end
+  object tReBuildForm: TTimer
+    Enabled = False
+    Interval = 50
+    OnTimer = tReBuildFormTimer
+    Left = 184
+    Top = 336
+  end
+end
