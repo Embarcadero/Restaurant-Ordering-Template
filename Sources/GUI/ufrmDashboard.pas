@@ -7,7 +7,8 @@ uses
 
   uDMUnit,
   {$IFDEF ANDROID}
-  AndroidAPI.Helpers, Androidapi.JNI.GraphicsContentViewText,
+  AndroidAPI.Helpers, Androidapi.JNI.GraphicsContentViewText, Androidapi.JNI.Net,
+  Androidapi.JNI.App,
   {$ENDIF}
   {$IFDEF IOS}
   Macapi.Helpers, iOSapi.Foundation, FMX.Helpers.IOS,
@@ -21,19 +22,17 @@ type
     LayoutDashboard: TLayout;
     PanelBackGround: TPanel;
     tbMain: TToolBar;
-    btnMenu: TButton;
+    btnSideMenu: TButton;
     btnBack: TButton;
     gplTopButtons: TGridPanelLayout;
-    btnGallery: TButton;
+    btnMenu: TButton;
+    btnCart: TButton;
     btnCoupons: TButton;
-    btnAccount: TButton;
     gblBottomButtons: TGridPanelLayout;
-    btnCallUs: TButton;
-    btnEmailUs: TButton;
-    btnDirections: TButton;
+    btnGallery: TButton;
+    btnAccount: TButton;
+    btnAboutUs: TButton;
     procedure FormCreate(Sender: TObject);
-    procedure btnEmailUsClick(Sender: TObject);
-    procedure btnCallUsClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -58,74 +57,9 @@ begin
   btnGallery.Text:= 'Gallery';
   btnCoupons.Text:= 'Coupons';
   btnAccount.Text:= 'Account';
-  btnCallUs.Text:= 'Call Us';
-  btnEmailUs.Text:= 'Email Us';
-  btnDirections.Text:= 'Directions';
-end;
-
-procedure TfrmDashboard.btnCallUsClick(Sender: TObject);
-
-  function ClearPhoneNumb(const ANumb: string): string;
-  var
-    ifor: integer;
-  begin
-    Result:= '';
-
-    for ifor:= 1 to length(ANumb) do
-      if ANumb[ifor] in ['0'..'9'] then
-        Result:= Result + ANumb[ifor];
-  end;
-
-{$IF DEFINED(ANDROID)}
-var
-  lIntent: JIntent;
-{$ENDIF}
-{$IF DEFINED(IOS)}
-var
-  lNSU: NSUrl;
-  lPhoneNumber: string;
-{$ENDIF}
-begin
-  {$IF DEFINED(ANDROID)}
-  lIntent:= TJIntent.Create;
-  lIntent.setAction(TJIntent.JavaClass.ACTION_VIEW);
-  lIntent.setData(StrToJURI('tel:' + DMUnit.PhoneNumber));
-  SharedActivity.startActivity(lIntent);
-  {$ENDIF}
-
-  {$IF DEFINED(IOS)}
-  lPhoneNumber:= 'tel:' + ClearPhoneNumb(DMUnit.PhoneNumber);
-  lNSU:= TNSURL.Wrap(TNSURL.OCClass.URLWithString(StrToNSStr(lPhoneNumber)));
-  if SharedApplication.canOpenURL(lNSU) then
-    SharedApplication.openUrl(lNSU);
-  {$ENDIF}
-end;
-
-procedure TfrmDashboard.btnEmailUsClick(Sender: TObject);
-{$IF DEFINED(ANDROID)}
-var
-  lIntent: JIntent;
-{$ENDIF}
-
-{$IF DEFINED(IOS)}
-var
-  lNSU: NSUrl;
-  lUrl: string;
-{$ENDIF}
-begin
-  {$IF DEFINED(ANDROID)}
-  lIntent:= TJIntent.Create;
-  lIntent.setAction(TJIntent.JavaClass.ACTION_SENDTO);
-  lIntent.setData(StrToJURI('mailto:' + DMUnit.EmailUs));
-  SharedActivity.startActivity(lIntent);
-  {$ENDIF}
-
-  {$IF DEFINED(IOS)}
-  lUrl:= 'mailto:' + DMUnit.EmailUs;
-  lNSU:= TNSURL.Wrap(TNSURL.OCClass.URLWithString(StrToNSStr(lUrl)));
-  if SharedApplication.canOpenURL(lNSU) then
-    SharedApplication.openUrl(lNSU);
-  {$ENDIF}
+  btnMenu.Text:= 'Menu';
+  btnCart.Text:= 'Cart';
+  btnAboutUs.Text:= 'About Us';
 end;
 
 end.

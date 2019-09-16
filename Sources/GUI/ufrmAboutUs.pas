@@ -7,7 +7,8 @@ uses
 
   uDMUnit, System.Rtti, FMX.StdCtrls, Data.DB, FMX.DialogService,
   {$IFDEF ANDROID}
-  AndroidAPI.Helpers, Androidapi.JNI.GraphicsContentViewText,
+  AndroidAPI.Helpers, Androidapi.JNI.GraphicsContentViewText, Androidapi.JNI.Net,
+  Androidapi.JNI.App,
   {$ENDIF}
   {$IFDEF IOS}
   Macapi.Helpers, iOSapi.Foundation, FMX.Helpers.IOS,
@@ -44,11 +45,16 @@ type
     Text2: TText;
     Text3: TText;
     procedure FormCreate(Sender: TObject);
+    procedure Button1Click(Sender: TObject);
+    procedure Button2Click(Sender: TObject);
+    procedure Button3Click(Sender: TObject);
+    procedure Button4Click(Sender: TObject);
   private
     procedure ShareButtonOnClick(Sender: TObject);
     procedure ReCalcGPLHeight();
     procedure BuildContsctInfoList();
     procedure ContactInfoButtonClick(Sender: TObject);
+    procedure UnSupportedMessage();
   public
     procedure BuildAboutUsInfo();
   end;
@@ -73,7 +79,6 @@ end;
 procedure TfrmAboutUs.BuildAboutUsInfo();
 var
   lLBItem: TListBoxItem;
-  ifor: Integer;
   lMemoryStream: TMemoryStream;
 begin
   lbAboutUsLogo.BeginUpdate;
@@ -92,6 +97,7 @@ begin
 
       lLBItem.StylesData['Button.Tag']:= FieldByName('ID').AsInteger;
       lLBItem.StylesData['Button.OnClick']:= TValue.from<TNotifyEvent>(ShareButtonOnClick);
+      lLBItem.StylesData['Button.Visible']:= False;
 
       {$region ' Load image to stream '}
       if (FieldByName('Image').AsString <> '') then
@@ -122,7 +128,7 @@ procedure TfrmAboutUs.ShareButtonOnClick(Sender: TObject);
 begin
   if TButton(Sender).Tag > 0 then
   begin
-
+    TDialogService.ShowMessage('This function is not implemented.');
   end;
 end;
 
@@ -208,7 +214,17 @@ procedure TfrmAboutUs.ContactInfoButtonClick(Sender: TObject);
     Result:= '';
 
     for ifor:= 1 to length(ANumb) do
-      if ANumb[ifor] in ['0'..'9'] then
+      if (ANumb[ifor] = '0') or
+         (ANumb[ifor] = '1') or
+         (ANumb[ifor] = '2') or
+         (ANumb[ifor] = '3') or
+         (ANumb[ifor] = '4') or
+         (ANumb[ifor] = '5') or
+         (ANumb[ifor] = '6') or
+         (ANumb[ifor] = '7') or
+         (ANumb[ifor] = '8') or
+         (ANumb[ifor] = '9')
+      then
         Result:= Result + ANumb[ifor];
   end;
 
@@ -224,10 +240,14 @@ var
   lPhoneNumber: string;
 {$ENDIF}
 begin
+  {$IF DEFINED(Win64) or DEFINED(Win32)}
+  UnSupportedMessage();
+  {$ENDIF}
+
   case TButton(Sender).Tag of
     1: // Directions
       begin
-
+        TDialogService.ShowMessage('This function is not implemented.');
       end;
     2: // Call Now
       begin
@@ -235,7 +255,7 @@ begin
         lIntent:= TJIntent.Create;
         lIntent.setAction(TJIntent.JavaClass.ACTION_VIEW);
         lIntent.setData(StrToJURI('tel:' + DMUnit.PhoneNumber));
-        SharedActivity.startActivity(lIntent);
+        TAndroidHelper.Activity.startActivity(lIntent);
         {$ENDIF}
 
         {$IF DEFINED(IOS)}
@@ -251,7 +271,7 @@ begin
         lIntent:= TJIntent.Create;
         lIntent.setAction(TJIntent.JavaClass.ACTION_SENDTO);
         lIntent.setData(StrToJURI('mailto:' + DMUnit.EmailUs));
-        SharedActivity.startActivity(lIntent);
+        TAndroidHelper.Activity.startActivity(lIntent);
         {$ENDIF}
 
         {$IF DEFINED(IOS)}
@@ -262,6 +282,31 @@ begin
         {$ENDIF}
       end;
   end;
+end;
+
+procedure TfrmAboutUs.UnSupportedMessage();
+begin
+  TDialogService.ShowMessage('It is not supported on this platform.');
+end;
+
+procedure TfrmAboutUs.Button1Click(Sender: TObject);
+begin
+  TDialogService.ShowMessage('This function is not implemented.');
+end;
+
+procedure TfrmAboutUs.Button2Click(Sender: TObject);
+begin
+  TDialogService.ShowMessage('This function is not implemented.');
+end;
+
+procedure TfrmAboutUs.Button3Click(Sender: TObject);
+begin
+  TDialogService.ShowMessage('This function is not implemented.');
+end;
+
+procedure TfrmAboutUs.Button4Click(Sender: TObject);
+begin
+  TDialogService.ShowMessage('This function is not implemented.');
 end;
 
 end.

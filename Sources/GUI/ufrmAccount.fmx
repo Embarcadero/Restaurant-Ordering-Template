@@ -353,6 +353,7 @@ object frmAccount: TfrmAccount
             StyleLookup = 'ButtonGetStartedStyle'
             TabOrder = 1
             Text = 'Save Account Info'
+            OnClick = btnCreateAccountClick
           end
         end
       end

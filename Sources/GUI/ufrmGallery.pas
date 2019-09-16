@@ -5,7 +5,7 @@ interface
 uses
   System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
 
-  uDMUnit, System.Rtti, FMX.StdCtrls, Data.DB,
+  uDMUnit, System.Rtti, FMX.StdCtrls, Data.DB, FMX.DialogService,
 
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.Layouts,
   FMX.ListBox;
@@ -47,7 +47,6 @@ end;
 procedure TfrmGallery.LoadGalleryList();
 var
   lLBItem: TListBoxItem;
-  ifor: Integer;
   lMemoryStream: TMemoryStream;
 begin
   lbGallery.BeginUpdate;
@@ -96,7 +95,7 @@ procedure TfrmGallery.lbGalleryItemOnClick(Sender: TObject);
 begin
   if (TListBoxItem(Sender).Tag > 0) then
   begin
-    // You can make click action inside this block
+    TDialogService.ShowMessage('This function is not implemented.');
   end;
 end;
 

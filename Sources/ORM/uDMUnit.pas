@@ -9,9 +9,7 @@ uses
   FireDAC.Comp.DataSet, FireDAC.Comp.Client, System.DateUtils;
 
 const
-  cOffersPerValue = 30; // In percent
   cSalesTax = 20; // In percent
-  cDeliveryFee = 0;
   cEmailUs = 'help@email.com';
   cPhoneNumber = '0(800)111-22-33';
 
@@ -83,12 +81,15 @@ type
     procedure InsertTestDataForAboutUs();
     procedure InsertTestDataForContactInfo();
 
+    procedure AddDataToFDMT1(aID: Integer; aLinkTo: Integer; aOpacity: Extended; const aName: string; const aDescription: string; aPrice: Extended);
+    procedure AddDataToFDMT3(aID: Integer; const aName: string);
+
     function GetCartCount(): Integer;
     function GetOffersAmount(): Extended;
     function GetSalesAmount(): Extended;
     function GetDeliveryFeeAmount(): Extended;
   public
-    function AddItemToCart(aItemId: int64 = 0; aOwnerID: int64 = 0; aItemName: string = ''; aItemType: TCartItemType = citItem; aQuantity: Extended = 1; aItemPrice: Extended = 0; aOwnerIndex: Integer = -1): Integer;
+    function AddItemToCart(aItemId: int64 = 0; aOwnerID: int64 = 0; const aItemName: string = ''; aItemType: TCartItemType = citItem; aQuantity: Extended = 1; aItemPrice: Extended = 0; aOwnerIndex: Integer = -1): Integer;
     procedure DelItemFromCart(aItemIndex: Integer = 0);
     procedure ClearCart();
     function GetCartTotalAmount(): Extended;
@@ -120,7 +121,7 @@ implementation
 procedure TDMUnit.DataModuleCreate(Sender: TObject);
 begin
   // Test offers and Tax values
-  OffersPerValue:= cOffersPerValue;
+  OffersPerValue:= 0;
   SalesTax:= cSalesTax;
   EmailUs:= cEmailUs;
   PhoneNumber:= cPhoneNumber;
@@ -133,6 +134,17 @@ begin
   InsertTestDataForContactInfo();
 end;
 
+procedure TDMUnit.AddDataToFDMT1(aID: Integer; aLinkTo: Integer; aOpacity: Extended; const aName: string; const aDescription: string; aPrice: Extended);
+begin
+  FDMemTable1.Insert;
+  FDMemTable1.FieldByName('ID').AsInteger:= aID;
+  FDMemTable1.FieldByName('LinkTo').AsInteger:= aLinkTo;
+  FDMemTable1.FieldByName('Opacity').AsFloat:= aOpacity;
+  FDMemTable1.FieldByName('Name').AsString:= aName;
+  FDMemTable1.FieldByName('Description').AsString:= aDescription;
+  FDMemTable1.FieldByName('Price').AsFloat:= aPrice;
+end;
+
 procedure TDMUnit.InsertTestDataForTheMenu();
 var
   lMemoryStream: TMemoryStream;
@@ -142,13 +154,7 @@ begin
   FDMemTable1.Open;
 
   // 7 item
-  FDMemTable1.Insert;
-  FDMemTable1.FieldByName('ID').AsInteger:= 9;
-  FDMemTable1.FieldByName('LinkTo').AsInteger:= 8;
-  FDMemTable1.FieldByName('Opacity').AsFloat:= 1;
-  FDMemTable1.FieldByName('Name').AsString:= 'Strudel';
-  FDMemTable1.FieldByName('Description').AsString:= 'Fantastic taste and delicious aroma of freshly baked strudel.';
-  FDMemTable1.FieldByName('Price').AsFloat:= 4.75;
+  AddDataToFDMT1(9, 8, 1, 'Strudel', 'Fantastic taste and delicious aroma of freshly baked strudel.', 4.75);
 
   // Add small image
   lMemoryStream:= TMemoryStream.Create;
@@ -173,25 +179,11 @@ begin
   FDMemTable1.Post;
 
   // 8 item
-  FDMemTable1.Insert;
-  FDMemTable1.FieldByName('ID').AsInteger:= 8;
-  FDMemTable1.FieldByName('LinkTo').AsInteger:= 0;
-  FDMemTable1.FieldByName('Opacity').AsFloat:= 1;
-  FDMemTable1.FieldByName('Name').AsString:= '3. Desserts';
-  FDMemTable1.FieldByName('Description').AsString:= '';
-  FDMemTable1.FieldByName('Price').AsFloat:= 0;
-
+  AddDataToFDMT1(8, 0, 1, '3. Desserts', '', 0);
   FDMemTable1.Post;
 
   // 7 item
-  FDMemTable1.Insert;
-  FDMemTable1.FieldByName('ID').AsInteger:= 7;
-  FDMemTable1.FieldByName('LinkTo').AsInteger:= 5;
-  FDMemTable1.FieldByName('Opacity').AsFloat:= 0.4;
-  FDMemTable1.FieldByName('Name').AsString:= 'Pasta presto';
-  FDMemTable1.FieldByName('Description').AsString:= 'Fine and delicate parmesan flavor...';
-  FDMemTable1.FieldByName('Price').AsFloat:= 9.30;
-
+  AddDataToFDMT1(7, 5, 0.4, 'Pasta presto', 'Fine and delicate parmesan flavor...', 9.30);
   // Add small image
   lMemoryStream:= TMemoryStream.Create;
   try
@@ -215,14 +207,7 @@ begin
   FDMemTable1.Post;
 
   // 6 item
-  FDMemTable1.Insert;
-  FDMemTable1.FieldByName('ID').AsInteger:= 6;
-  FDMemTable1.FieldByName('LinkTo').AsInteger:= 5;
-  FDMemTable1.FieldByName('Opacity').AsFloat:= 1;
-  FDMemTable1.FieldByName('Name').AsString:= 'Risotto Fresco';
-  FDMemTable1.FieldByName('Description').AsString:= 'Creamy white wine risotto with oak-...';
-  FDMemTable1.FieldByName('Price').AsFloat:= 11.00;
-
+  AddDataToFDMT1(6, 5, 1, 'Risotto Fresco', 'Creamy white wine risotto with oak-...', 11.00);
   // Add small image
   lMemoryStream:= TMemoryStream.Create;
   try
@@ -246,25 +231,11 @@ begin
   FDMemTable1.Post;
 
   // 5 item
-  FDMemTable1.Insert;
-  FDMemTable1.FieldByName('ID').AsInteger:= 5;
-  FDMemTable1.FieldByName('LinkTo').AsInteger:= 0;
-  FDMemTable1.FieldByName('Opacity').AsFloat:= 1;
-  FDMemTable1.FieldByName('Name').AsString:= '2. Mains';
-  FDMemTable1.FieldByName('Description').AsString:= '';
-  FDMemTable1.FieldByName('Price').AsFloat:= 0;
-
+  AddDataToFDMT1(5, 0, 1, '2. Mains', '', 0);
   FDMemTable1.Post;
 
   // 4 item
-  FDMemTable1.Insert;
-  FDMemTable1.FieldByName('ID').AsInteger:= 4;
-  FDMemTable1.FieldByName('LinkTo').AsInteger:= 1;
-  FDMemTable1.FieldByName('Opacity').AsFloat:= 0.4;
-  FDMemTable1.FieldByName('Name').AsString:= 'Garlic Bread';
-  FDMemTable1.FieldByName('Description').AsString:= 'Freshly baked garlic bread. Soft and lightly...';
-  FDMemTable1.FieldByName('Price').AsFloat:= 3.50;
-
+  AddDataToFDMT1(4, 1, 0.4, 'Garlic Bread', 'Freshly baked garlic bread. Soft and lightly...', 3.50);
   // Add small image
   lMemoryStream:= TMemoryStream.Create;
   try
@@ -288,14 +259,7 @@ begin
   FDMemTable1.Post;
 
   // 3 item
-  FDMemTable1.Insert;
-  FDMemTable1.FieldByName('ID').AsInteger:= 3;
-  FDMemTable1.FieldByName('LinkTo').AsInteger:= 1;
-  FDMemTable1.FieldByName('Opacity').AsFloat:= 1;
-  FDMemTable1.FieldByName('Name').AsString:= 'Spicy Calamari';
-  FDMemTable1.FieldByName('Description').AsString:= 'Tender calamari, lightly breaded and soft...';
-  FDMemTable1.FieldByName('Price').AsFloat:= 4.95;
-
+  AddDataToFDMT1(3, 1, 1, 'Spicy Calamari', 'Tender calamari, lightly breaded and soft...', 4.95);
   // Add small image
   lMemoryStream:= TMemoryStream.Create;
   try
@@ -319,14 +283,7 @@ begin
   FDMemTable1.Post;
 
   // 2 item
-  FDMemTable1.Insert;
-  FDMemTable1.FieldByName('ID').AsInteger:= 2;
-  FDMemTable1.FieldByName('LinkTo').AsInteger:= 1;
-  FDMemTable1.FieldByName('Opacity').AsFloat:= 0.4;
-  FDMemTable1.FieldByName('Name').AsString:= 'Garlic Bread';
-  FDMemTable1.FieldByName('Description').AsString:= 'Perfect light garlic bread';
-  FDMemTable1.FieldByName('Price').AsFloat:= 10;
-
+  AddDataToFDMT1(2, 1, 0.4, 'Garlic Bread', 'Perfect light garlic bread', 10);
   // Add small image
   lMemoryStream:= TMemoryStream.Create;
   try
@@ -350,14 +307,7 @@ begin
   FDMemTable1.Post;
 
   // 1 item
-  FDMemTable1.Insert;
-  FDMemTable1.FieldByName('ID').AsInteger:= 1;
-  FDMemTable1.FieldByName('LinkTo').AsInteger:= 0;
-  FDMemTable1.FieldByName('Opacity').AsFloat:= 1;
-  FDMemTable1.FieldByName('Name').AsString:= '1. Starters';
-  FDMemTable1.FieldByName('Description').AsString:= '';
-  FDMemTable1.FieldByName('Price').AsFloat:= 0;
-
+  AddDataToFDMT1(1, 0, 1, '1. Starters', '', 0);
   FDMemTable1.Post;
 end;
 
@@ -420,7 +370,7 @@ begin
   // 2 item
   FDMemTable2.Insert;
   FDMemTable2.FieldByName('ID').AsInteger:= 2;
-  FDMemTable2.FieldByName('Discount').AsInteger:= 0;
+  FDMemTable2.FieldByName('Discount').AsInteger:= 10;
   FDMemTable2.FieldByName('ExpiresDate').AsDateTime:= TDate(IncDay(Now, 2));
   FDMemTable2.FieldByName('Name').AsString:= 'Welcom Offer';
   FDMemTable2.FieldByName('GMTPlus').AsInteger:= 1;
@@ -456,6 +406,13 @@ begin
   FDMemTable2.Post;
 end;
 
+procedure TDMUnit.AddDataToFDMT3(aID: Integer; const aName: string);
+begin
+  FDMemTable3.Insert;
+  FDMemTable3.FieldByName('ID').AsInteger:= aID;
+  FDMemTable3.FieldByName('Name').AsString:= aName;
+end;
+
 procedure TDMUnit.InsertTestDataForTheGallery();
 var
   lMemoryStream: TMemoryStream;
@@ -463,10 +420,7 @@ begin
   FDMemTable3.Open;
 
   // 4 item
-  FDMemTable3.Insert;
-  FDMemTable3.FieldByName('ID').AsInteger:= 4;
-  FDMemTable3.FieldByName('Name').AsString:= 'Photo 4';
-
+  AddDataToFDMT3(4, 'Photo 4');
   lMemoryStream:= TMemoryStream.Create;
   try
     ImageListContactsExample.Source[3].MultiResBitmap.Bitmaps[1].SaveToStream(lMemoryStream);
@@ -479,10 +433,7 @@ begin
   FDMemTable3.Post;
 
   // 3 item
-  FDMemTable3.Insert;
-  FDMemTable3.FieldByName('ID').AsInteger:= 3;
-  FDMemTable3.FieldByName('Name').AsString:= 'Photo 3';
-
+  AddDataToFDMT3(3, 'Photo 3');
   lMemoryStream:= TMemoryStream.Create;
   try
     ImageListContactsExample.Source[2].MultiResBitmap.Bitmaps[1].SaveToStream(lMemoryStream);
@@ -495,10 +446,7 @@ begin
   FDMemTable3.Post;
 
   // 2 item
-  FDMemTable3.Insert;
-  FDMemTable3.FieldByName('ID').AsInteger:= 2;
-  FDMemTable3.FieldByName('Name').AsString:= 'Photo 2';
-
+  AddDataToFDMT3(2, 'Photo 2');
   lMemoryStream:= TMemoryStream.Create;
   try
     ImageListContactsExample.Source[1].MultiResBitmap.Bitmaps[1].SaveToStream(lMemoryStream);
@@ -511,10 +459,7 @@ begin
   FDMemTable3.Post;
 
   // 1 item
-  FDMemTable3.Insert;
-  FDMemTable3.FieldByName('ID').AsInteger:= 1;
-  FDMemTable3.FieldByName('Name').AsString:= 'Photo 1';
-
+  AddDataToFDMT3(1, 'Photo 1');
   lMemoryStream:= TMemoryStream.Create;
   try
     ImageListContactsExample.Source[0].MultiResBitmap.Bitmaps[1].SaveToStream(lMemoryStream);
@@ -536,7 +481,7 @@ begin
   // 1 item
   FDMemTable5.Insert;
   FDMemTable5.FieldByName('ID').AsInteger:= 1;
-  FDMemTable5.FieldByName('Name').AsString:= '';
+  FDMemTable5.FieldByName('Name').AsString:= 'LA COZZA INFURIATA';
 
   lMemoryStream:= TMemoryStream.Create;
   try
@@ -583,7 +528,7 @@ begin
   FDMemTable6.Post;
 end;
 
-function TDMUnit.AddItemToCart(aItemId: int64 = 0; aOwnerID: int64 = 0; aItemName: string = ''; aItemType: TCartItemType = citItem; aQuantity: Extended = 1; aItemPrice: Extended = 0; aOwnerIndex: Integer = -1): Integer;
+function TDMUnit.AddItemToCart(aItemId: int64 = 0; aOwnerID: int64 = 0; const aItemName: string = ''; aItemType: TCartItemType = citItem; aQuantity: Extended = 1; aItemPrice: Extended = 0; aOwnerIndex: Integer = -1): Integer;
 begin
   SetLength(FCartList, Length(CartList) + 1);
 

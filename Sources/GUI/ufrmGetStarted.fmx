@@ -55,6 +55,93 @@ object frmGetStarted: TfrmGetStarted
           OnClick = btnGetStartedClick
         end
       end
+      object GridPanelLayout1: TGridPanelLayout
+        Align = Client
+        Margins.Top = 130.000000000000000000
+        Size.Width = 393.000000000000000000
+        Size.Height = 473.000000000000000000
+        Size.PlatformDefault = False
+        TabOrder = 1
+        ColumnCollection = <
+          item
+            Value = 100.000000000000000000
+          end>
+        ControlCollection = <
+          item
+            Column = 0
+            Control = Layout1
+            Row = 0
+          end
+          item
+            Column = 0
+            Control = Layout2
+            Row = 1
+          end>
+        RowCollection = <
+          item
+            SizeStyle = Absolute
+            Value = 100.000000000000000000
+          end
+          item
+            Value = 100.000000000000000000
+          end
+          item
+            SizeStyle = Auto
+          end>
+        object Layout1: TLayout
+          Align = Client
+          Margins.Left = 20.000000000000000000
+          Margins.Right = 20.000000000000000000
+          Size.Width = 353.000000000000000000
+          Size.Height = 100.000000000000000000
+          Size.PlatformDefault = False
+          TabOrder = 0
+          object tRestaurantName: TText
+            Align = Client
+            Size.Width = 353.000000000000000000
+            Size.Height = 100.000000000000000000
+            Size.PlatformDefault = False
+            TextSettings.Font.Family = 'Arial'
+            TextSettings.Font.Size = 28.000000000000000000
+            TextSettings.Font.StyleExt = {00070000000000000004000000}
+            TextSettings.FontColor = claWhite
+          end
+        end
+        object Layout2: TLayout
+          Align = Client
+          Margins.Left = 20.000000000000000000
+          Margins.Right = 20.000000000000000000
+          Size.Width = 353.000000000000000000
+          Size.Height = 373.000000000000000000
+          Size.PlatformDefault = False
+          TabOrder = 1
+          object lbContactInfo: TListBox
+            Align = Client
+            HitTest = False
+            Margins.Left = 10.000000000000000000
+            Margins.Right = 10.000000000000000000
+            Size.Width = 333.000000000000000000
+            Size.Height = 373.000000000000000000
+            Size.PlatformDefault = False
+            StyleLookup = 'ListboxNullNoSelStyle'
+            TabOrder = 1
+            DisableFocusEffect = True
+            DefaultItemStyles.ItemStyle = ''
+            DefaultItemStyles.GroupHeaderStyle = ''
+            DefaultItemStyles.GroupFooterStyle = ''
+            Viewport.Width = 329.000000000000000000
+            Viewport.Height = 369.000000000000000000
+            object ListBoxItem2: TListBoxItem
+              Size.Width = 329.000000000000000000
+              Size.Height = 80.000000000000000000
+              Size.PlatformDefault = False
+              StyleLookup = 'ListboxItemContactInfoStyle'
+              TabOrder = 0
+              Text = 'ListBoxItem1'
+            end
+          end
+        end
+      end
     end
   end
 end

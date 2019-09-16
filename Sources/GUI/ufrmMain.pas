@@ -27,7 +27,7 @@ type
   end;
 
   TfrmMain = class(TForm)
-    btnMenu: TButton;
+    btnSideMenu: TButton;
     btnBack: TButton;
     LayoutContent: TLayout;
     tcMain: TTabControl;
@@ -50,20 +50,26 @@ type
     procedure FormShow(Sender: TObject);
     procedure tbtnCloseTabTimer(Sender: TObject);
     procedure LayoutContentClick(Sender: TObject);
-    procedure btnMenuClick(Sender: TObject);
+    procedure btnSideMenuClick(Sender: TObject);
     procedure btnBackClick(Sender: TObject);
     procedure tCloseTabOnSaveTimer(Sender: TObject);
-    procedure lbItemMenuClick(Sender: TObject);
+    procedure lbMainMenuItemClick(const Sender: TCustomListBox; const Item: TListBoxItem);
   private
     FTabsArray: TTabsArray;
     FTabForClosingName: string;
 
     function CheckTabOnExists(const aTabName: string): Boolean;
-    procedure LoadScreenByName(aScreenName: string = '');
+    procedure LoadScreenByName(const aScreenName: string = '');
 
     procedure tabItembtnCloseClick(Sender: TObject);
     procedure btnDashboardClick(Sender: TObject);
-    procedure CallForm(aFormClass: TClassOfForm = nil; abtnBackHint: String = ''; aIsMenuButtonVisible: Boolean = True; aIsBackButtonVisible: Boolean = False; aButtonsTintColor: TAlphaColor = $FF631F70);
+    procedure CallForm(aFormClass: TClassOfForm = nil; const abtnBackHint: String = ''; aIsMenuButtonVisible: Boolean = True; aIsBackButtonVisible: Boolean = False; aButtonsTintColor: TAlphaColor = $FF631F70);
+    procedure IfTabNotExist(const aScreenName: string = '');
+    procedure AllTabsExceptDashboard(const aScreenName: string = '');
+    procedure JustDashboard(const aScreenName: string = '');
+
+    function CheckIsFormAssigned(aFormClass: TClass = nil): Boolean;
+    procedure SetActiveTab(aFor: Integer = -1);
   public
     property TabsArray: TTabsArray read FTabsArray write FTabsArray;
     property TabForClosingName: string read FTabForClosingName write FTabForClosingName;
@@ -118,160 +124,190 @@ begin
   tShowGetStartedOnStartUp.Enabled:= True;
 end;
 
-procedure TfrmMain.LoadScreenByName(aScreenName: string = '');
-var
-  ifor: Integer;
+procedure TfrmMain.LoadScreenByName(const aScreenName: string = '');
 begin
   if mvSliderMenu.IsShowed then
     mvSliderMenu.HideMaster;
 
+  // If tab not yet exist
   if not CheckTabOnExists('tab' + aScreenName) then
-  begin
-    SetLength(FTabsArray, Length(FTabsArray) + 1);
-    TabsArray[Length(TabsArray) - 1].TabItem:= TTabItem.Create(tcMain);
-    TabsArray[Length(TabsArray) - 1].TabItem.Parent:= tcMain;
-
-    TabsArray[Length(TabsArray) - 1].TabItem.AutoSize:= False;
-    TabsArray[Length(TabsArray) - 1].TabItem.IsSelected:= True;
-    TabsArray[Length(TabsArray) - 1].TabItem.Name:= 'tab' + aScreenName;
-    TabsArray[Length(TabsArray) - 1].TabItem.Text:= 'cap' + aScreenName;
-
-    tbMain.Visible:= True;
-    lbItemDashBoard.Visible:= True;
-
-    // Dashbord
-    if LowerCase(aScreenName) = LowerCase('lbItemDashboard') then
-    begin
-      lbItemDashBoard.Visible:= False;
-      CallForm(TfrmDashboard);
-      TfrmDashboard(TabsArray[Length(TabsArray) - 1].TabForm).LayoutDashboard.Parent:= TabsArray[Length(TabsArray) - 1].TabItem;
-    end else
-
-    // Profile
-    if LowerCase(aScreenName) = LowerCase('GetStarted') then
-    begin
-      tbMain.Visible:= False;
-      CallForm(TfrmGetStarted, TabsArray[Length(TabsArray) - 1].TabItem.Name, True, False, $FF585858);
-      TfrmGetStarted(TabsArray[Length(TabsArray) - 1].TabForm).LayoutGetStarted.Parent:= TabsArray[Length(TabsArray) - 1].TabItem;
-    end else
-
-    // Menu
-    if LowerCase(aScreenName) = LowerCase('lbItemMenu') then
-    begin
-      CallForm(TfrmMenu, '', True, False, $FF585858);
-      TfrmMenu(TabsArray[Length(TabsArray) - 1].TabForm).LayoutContent.Parent:= TabsArray[Length(TabsArray) - 1].TabItem;
-    end else
-
-    // Coupons
-    if LowerCase(aScreenName) = LowerCase('lbItemCoupons') then
-    begin
-      CallForm(TfrmCoupons, TabsArray[Length(TabsArray) - 1].TabItem.Name, False, True, $FF585858);
-      TfrmCoupons(TabsArray[Length(TabsArray) - 1].TabForm).LayoutContent.Parent:= TabsArray[Length(TabsArray) - 1].TabItem;
-    end else
-
-    // Account
-    if LowerCase(aScreenName) = LowerCase('lbItemAccount') then
-    begin
-      CallForm(TfrmAccount, '', True, False, $FF585858);
-      TfrmAccount(TabsArray[Length(TabsArray) - 1].TabForm).LayoutContent.Parent:= TabsArray[Length(TabsArray) - 1].TabItem;
-    end else
-
-    // Gallery
-    if LowerCase(aScreenName) = LowerCase('lbItemGallery') then
-    begin
-      CallForm(TfrmGallery, '', True, False, $FF585858);
-      TfrmGallery(TabsArray[Length(TabsArray) - 1].TabForm).LayoutContent.Parent:= TabsArray[Length(TabsArray) - 1].TabItem;
-    end else
-
-    // Cart
-    if LowerCase(aScreenName) = LowerCase('lbItemCart') then
-    begin
-      CallForm(TfrmCart, '', True, False, $FF585858);
-      TfrmCart(TabsArray[Length(TabsArray) - 1].TabForm).LayoutContent.Parent:= TabsArray[Length(TabsArray) - 1].TabItem;
-    end else
-
-    // About Us
-    if LowerCase(aScreenName) = LowerCase('lbItemAboutUs') then
-    begin
-      CallForm(TfrmAboutUs, '', True, False, $FF585858);
-      TfrmAboutUs(TabsArray[Length(TabsArray) - 1].TabForm).LayoutContent.Parent:= TabsArray[Length(TabsArray) - 1].TabItem;
-    end else
-
-    begin
-
-    end;
-  end else
+    IfTabNotExist(aScreenName)
+   else
   // If tab exists
   begin
+    // All tabs except Dashboard
     if (LowerCase(aScreenName) <> LowerCase('lbItemDashBoard')) then
-    begin
-      for ifor:= 0 to pred(Length(TabsArray)) do
-      if Assigned(TabsArray[ifor].TabItem) then
-        if (LowerCase(TabsArray[ifor].TabItem.Name) = LowerCase('tab' + aScreenName)) then
-        begin
-          tbMain.Visible:= not (TabsArray[ifor].TabForm is TfrmDashboard);
-          btnMenu.Visible:= TabsArray[ifor].IsbtnMenuVisible;
-          btnBack.Visible:= TabsArray[ifor].IsbtnBackVisible;
-          btnMenu.IconTintColor:= TabsArray[ifor].MenuButtonsColor;
-          btnBack.IconTintColor:= TabsArray[ifor].MenuButtonsColor;
-          btnBack.StylesData['Text.TextSettings.FontColor']:= TValue.From<TAlphaColor>(TabsArray[ifor].MenuButtonsColor);
-
-          if btnBack.Visible then
-            btnBack.Hint:= TabsArray[ifor].TabItem.Name
-          else
-            btnBack.Hint:= '';
-
-          lbItemDashBoard.Visible:= True;
-
-          if Assigned(TabsArray[ifor].TabForm) then
-          begin
-            tbMain.StylesData['CAPTION.TEXT']:= TForm(TabsArray[ifor].TabForm).Caption;
-
-            if TabsArray[ifor].TabForm is TfrmCart then
-              TfrmCart(TabsArray[ifor].TabForm).BuildCartList();
-          end;
-
-          TabsArray[ifor].TabItem.IsSelected:= True;
-
-          Exit;
-        end;
-    end else
+      AllTabsExceptDashboard(aScreenName)
+    else
+    // Just Dashboard
     if LowerCase(aScreenName) = LowerCase('lbItemDashboard') then
-    for ifor:= 0 to pred(Length(TabsArray)) do
-      if Assigned(TabsArray[ifor].TabItem) then
-        if (LowerCase(TabsArray[ifor].TabItem.Name) = LowerCase('tab' + aScreenName)) then
-        begin
-          tbMain.Visible:= not (TabsArray[ifor].TabForm is TfrmDashboard);
-
-          if TabsArray[ifor].TabForm is TfrmDashboard then
-          begin
-            TfrmDashboard(TabsArray[ifor].TabForm).btnBack.Visible:= False;
-            TfrmDashboard(TabsArray[ifor].TabForm).btnBack.Hint:= '';
-            TfrmDashboard(TabsArray[ifor].TabForm).btnMenu.OnClick:= btnMenuClick;
-
-            TfrmDashboard(TabsArray[ifor].TabForm).btnGallery.OnClick:= btnDashboardClick;
-            TfrmDashboard(TabsArray[ifor].TabForm).btnAccount.OnClick:= btnDashboardClick;
-            TfrmDashboard(TabsArray[ifor].TabForm).btnCoupons.OnClick:= btnDashboardClick;
-
-            lbItemDashBoard.Visible:= False;
-            btnBack.Visible:= False;
-            btnBack.Hint:= '';
-          end;
-
-          if Assigned(TabsArray[ifor].TabForm) then
-            tbMain.StylesData['CAPTION.TEXT']:= TForm(TabsArray[ifor].TabForm).Caption;
-
-          TabsArray[ifor].TabItem.IsSelected:= True;
-
-          Exit;
-        end;
+      JustDashboard(aScreenName);
   end;
 end;
 
-procedure TfrmMain.CallForm(aFormClass: TClassOfForm = nil; abtnBackHint: String = ''; aIsMenuButtonVisible: Boolean = True; aIsBackButtonVisible: Boolean = False; aButtonsTintColor: TAlphaColor = $FF631F70);
+procedure TfrmMain.IfTabNotExist(const aScreenName: string = '');
 begin
-  btnMenu.Visible:= aIsMenuButtonVisible;
-  btnMenu.IconTintColor:= aButtonsTintColor;
+  SetLength(FTabsArray, Length(FTabsArray) + 1);
+  TabsArray[Length(TabsArray) - 1].TabItem:= TTabItem.Create(tcMain);
+  TabsArray[Length(TabsArray) - 1].TabItem.Parent:= tcMain;
+
+  TabsArray[Length(TabsArray) - 1].TabItem.AutoSize:= False;
+  TabsArray[Length(TabsArray) - 1].TabItem.IsSelected:= True;
+  TabsArray[Length(TabsArray) - 1].TabItem.Name:= 'tab' + aScreenName;
+  TabsArray[Length(TabsArray) - 1].TabItem.Text:= 'cap' + aScreenName;
+
+  tbMain.Visible:= True;
+  lbItemDashBoard.Visible:= True;
+
+  // Dashbord
+  if LowerCase(aScreenName) = LowerCase('lbItemDashboard') then
+  begin
+    lbItemDashBoard.Visible:= False;
+    CallForm(TfrmDashboard);
+    TfrmDashboard(TabsArray[Length(TabsArray) - 1].TabForm).LayoutDashboard.Parent:= TabsArray[Length(TabsArray) - 1].TabItem;
+    TfrmDashboard(TabsArray[Length(TabsArray) - 1].TabForm).btnSideMenu.OnClick:= btnSideMenuClick;
+  end else
+
+  // Profile
+  if LowerCase(aScreenName) = LowerCase('GetStarted') then
+  begin
+    tbMain.Visible:= False;
+    CallForm(TfrmGetStarted, TabsArray[Length(TabsArray) - 1].TabItem.Name, True, False, $FF585858);
+    TfrmGetStarted(TabsArray[Length(TabsArray) - 1].TabForm).LayoutGetStarted.Parent:= TabsArray[Length(TabsArray) - 1].TabItem;
+  end else
+
+  // Menu
+  if LowerCase(aScreenName) = LowerCase('lbItemMenu') then
+  begin
+    CallForm(TfrmMenu, '', True, False, $FF585858);
+    TfrmMenu(TabsArray[Length(TabsArray) - 1].TabForm).LayoutContent.Parent:= TabsArray[Length(TabsArray) - 1].TabItem;
+  end else
+
+  // Coupons
+  if LowerCase(aScreenName) = LowerCase('lbItemCoupons') then
+  begin
+    CallForm(TfrmCoupons, TabsArray[Length(TabsArray) - 1].TabItem.Name, False, True, $FF585858);
+    TfrmCoupons(TabsArray[Length(TabsArray) - 1].TabForm).LayoutContent.Parent:= TabsArray[Length(TabsArray) - 1].TabItem;
+  end else
+
+  // Account
+  if LowerCase(aScreenName) = LowerCase('lbItemAccount') then
+  begin
+    CallForm(TfrmAccount, '', True, False, $FF585858);
+    TfrmAccount(TabsArray[Length(TabsArray) - 1].TabForm).LayoutContent.Parent:= TabsArray[Length(TabsArray) - 1].TabItem;
+  end else
+
+  // Gallery
+  if LowerCase(aScreenName) = LowerCase('lbItemGallery') then
+  begin
+    CallForm(TfrmGallery, '', True, False, $FF585858);
+    TfrmGallery(TabsArray[Length(TabsArray) - 1].TabForm).LayoutContent.Parent:= TabsArray[Length(TabsArray) - 1].TabItem;
+  end else
+
+  // Cart
+  if LowerCase(aScreenName) = LowerCase('lbItemCart') then
+  begin
+    CallForm(TfrmCart, '', True, False, $FF585858);
+    TfrmCart(TabsArray[Length(TabsArray) - 1].TabForm).LayoutContent.Parent:= TabsArray[Length(TabsArray) - 1].TabItem;
+
+    if Length(DMUnit.CartList) = 0 then
+    begin
+      TDialogService.ShowMessage('The cart is empty. First you need to add some items from menu.');
+      LoadScreenByName(lbItemDashBoard.Name);
+    end;
+  end else
+
+  // About Us
+  if LowerCase(aScreenName) = LowerCase('lbItemAboutUs') then
+  begin
+    CallForm(TfrmAboutUs, '', True, False, $FF585858);
+    TfrmAboutUs(TabsArray[Length(TabsArray) - 1].TabForm).LayoutContent.Parent:= TabsArray[Length(TabsArray) - 1].TabItem;
+  end;
+end;
+
+procedure TfrmMain.AllTabsExceptDashboard(const aScreenName: string = '');
+var
+  ifor: Integer;
+begin
+  for ifor:= 0 to pred(Length(TabsArray)) do
+    if Assigned(TabsArray[ifor].TabItem) then
+      if (LowerCase(TabsArray[ifor].TabItem.Name) = LowerCase('tab' + aScreenName)) then
+      begin
+        if Assigned(TabsArray[ifor].TabForm) and (TabsArray[ifor].TabForm is TfrmCart) and (Length(DMUnit.CartList) = 0) then
+        begin
+          TDialogService.ShowMessage('The cart is empty. First you need to add some items from menu.');
+          Exit;
+        end;
+
+        tbMain.Visible:= not (TabsArray[ifor].TabForm is TfrmDashboard);
+        btnSideMenu.Visible:= TabsArray[ifor].IsbtnMenuVisible;
+        btnBack.Visible:= TabsArray[ifor].IsbtnBackVisible;
+        btnSideMenu.IconTintColor:= TabsArray[ifor].MenuButtonsColor;
+        btnBack.IconTintColor:= TabsArray[ifor].MenuButtonsColor;
+        btnBack.StylesData['Text.TextSettings.FontColor']:= TValue.From<TAlphaColor>(TabsArray[ifor].MenuButtonsColor);
+
+        if btnBack.Visible then
+          btnBack.Hint:= TabsArray[ifor].TabItem.Name
+        else
+          btnBack.Hint:= '';
+
+        lbItemDashBoard.Visible:= True;
+
+        if Assigned(TabsArray[ifor].TabForm) then
+        begin
+          tbMain.StylesData['CAPTION.TEXT']:= TForm(TabsArray[ifor].TabForm).Caption;
+
+          if TabsArray[ifor].TabForm is TfrmCart then
+            TfrmCart(TabsArray[ifor].TabForm).BuildCartList();
+        end;
+
+        TabsArray[ifor].TabItem.IsSelected:= True;
+
+        Exit;
+      end;
+end;
+
+procedure TfrmMain.JustDashboard(const aScreenName: string = '');
+var
+  ifor: Integer;
+begin
+  for ifor:= 0 to pred(Length(TabsArray)) do
+    if Assigned(TabsArray[ifor].TabItem) then
+      if (LowerCase(TabsArray[ifor].TabItem.Name) = LowerCase('tab' + aScreenName)) then
+      begin
+        tbMain.Visible:= not (TabsArray[ifor].TabForm is TfrmDashboard);
+
+        if TabsArray[ifor].TabForm is TfrmDashboard then
+        begin
+          TfrmDashboard(TabsArray[ifor].TabForm).btnBack.Visible:= False;
+          TfrmDashboard(TabsArray[ifor].TabForm).btnBack.Hint:= '';
+          TfrmDashboard(TabsArray[ifor].TabForm).btnMenu.OnClick:= btnSideMenuClick;
+
+          TfrmDashboard(TabsArray[ifor].TabForm).btnMenu.OnClick:= btnDashboardClick;
+          TfrmDashboard(TabsArray[ifor].TabForm).btnCart.OnClick:= btnDashboardClick;
+          TfrmDashboard(TabsArray[ifor].TabForm).btnCoupons.OnClick:= btnDashboardClick;
+          TfrmDashboard(TabsArray[ifor].TabForm).btnGallery.OnClick:= btnDashboardClick;
+          TfrmDashboard(TabsArray[ifor].TabForm).btnAccount.OnClick:= btnDashboardClick;
+          TfrmDashboard(TabsArray[ifor].TabForm).btnAboutUs.OnClick:= btnDashboardClick;
+
+          lbItemDashBoard.Visible:= False;
+          btnBack.Visible:= False;
+          btnBack.Hint:= '';
+        end;
+
+        if Assigned(TabsArray[ifor].TabForm) then
+          tbMain.StylesData['CAPTION.TEXT']:= TForm(TabsArray[ifor].TabForm).Caption;
+
+        TabsArray[ifor].TabItem.IsSelected:= True;
+
+        Exit;
+      end;
+end;
+
+procedure TfrmMain.CallForm(aFormClass: TClassOfForm = nil; const abtnBackHint: String = ''; aIsMenuButtonVisible: Boolean = True; aIsBackButtonVisible: Boolean = False; aButtonsTintColor: TAlphaColor = $FF631F70);
+begin
+  btnSideMenu.Visible:= aIsMenuButtonVisible;
+  btnSideMenu.IconTintColor:= aButtonsTintColor;
 
   btnBack.Visible:= aIsBackButtonVisible;
   btnBack.Text:= 'Back';
@@ -313,28 +349,24 @@ begin
       end;
 end;
 
+function TfrmMain.CheckIsFormAssigned(aFormClass: TClass = nil): Boolean;
+var
+  ffor: Integer;
+begin
+  Result:= False;
+
+  for ffor:= 0 to pred(Length(TabsArray)) do
+    if Assigned(TabsArray[ffor].TabForm) and (TabsArray[ffor].TabForm is aFormClass) then
+    begin
+      Result:= True;
+      break;
+    end;
+end;
+
 procedure TfrmMain.tbtnCloseTabTimer(Sender: TObject);
-
-  function CheckIsFormAssigned(aFormClass: TClass = nil): Boolean;
-  var
-    ffor: Integer;
-  begin
-    Result:= False;
-
-    for ffor:= 0 to pred(Length(TabsArray)) do
-      if Assigned(TabsArray[ffor].TabForm) and (TabsArray[ffor].TabForm is aFormClass) then
-      begin
-        Result:= True;
-        break;
-      end;
-  end;
-
 var
   ifor: Integer;
-  yfor: Integer;
-  lIsNeedReLogin: Boolean;
 begin
-  lIsNeedReLogin:= False;
   tbtnCloseTab.Enabled:= False;
 
   for ifor:= 0 to pred(Length(TabsArray)) do
@@ -345,40 +377,10 @@ begin
 
         tbMain.Visible:= True;
 
-        // Set active tab
+        {$region ' Set active tab '}
         if CheckIsFormAssigned(TabsArray[ifor].ActiveFormTabByClass) then
-        begin
-          lbItemDashBoard.Visible:= False;
-          btnBack.Visible:= False;
-          btnBack.Hint:= '';
-
-          for yfor:= 0 to pred(Length(TabsArray)) do
-            if Assigned(TabsArray[yfor].TabForm) and (TabsArray[yfor].TabForm is TabsArray[ifor].ActiveFormTabByClass) then
-            begin
-              tbMain.StylesData['CAPTION.TEXT']:= TForm(TabsArray[yfor].TabForm).Caption;
-
-              tbMain.Visible:= not (TabsArray[yfor].TabForm is TfrmDashboard);
-
-              if TabsArray[yfor].TabForm is TfrmDashboard then
-              begin
-                TfrmDashboard(TabsArray[yfor].TabForm).btnBack.Visible:= False;
-                TfrmDashboard(TabsArray[yfor].TabForm).btnBack.Hint:= '';
-                TfrmDashboard(TabsArray[yfor].TabForm).btnMenu.OnClick:= btnMenuClick;
-
-                TfrmDashboard(TabsArray[yfor].TabForm).btnGallery.OnClick:= btnDashboardClick;
-                TfrmDashboard(TabsArray[yfor].TabForm).btnAccount.OnClick:= btnDashboardClick;
-                TfrmDashboard(TabsArray[yfor].TabForm).btnCoupons.OnClick:= btnDashboardClick;
-
-                lbItemDashBoard.Visible:= False;
-                btnBack.Visible:= False;
-                btnBack.Hint:= '';
-              end;
-
-              TabsArray[yfor].TabItem.IsSelected:= True;
-            end;
-
-          Exit;
-        end else
+          SetActiveTab(ifor)
+        else
         begin
           // Let's stareted Active form tab by class name
           if not Assigned(TabsArray[ifor].ActiveFormTabByClass) then
@@ -386,8 +388,9 @@ begin
 
           LoadScreenByName(StringReplace(TabsArray[ifor].ActiveFormTabByClass.ClassName, 'Tfrm', 'lbItem', [rfReplaceAll]));
         end;
+        {$endregion}
 
-        // Clear memory
+        {$region ' Clear memory '}
         if Assigned(TabsArray[ifor].TabForm) then
         begin
           TabsArray[ifor].TabForm.Close;
@@ -401,7 +404,47 @@ begin
         TabsArray[ifor].ActiveFormTabByClass:= nil;
 
         break;
+        {$endregion}
       end;
+end;
+
+procedure TfrmMain.SetActiveTab(aFor: Integer = -1);
+var
+  yfor: Integer;
+begin
+  lbItemDashBoard.Visible:= False;
+  btnBack.Visible:= False;
+  btnBack.Hint:= '';
+
+  for yfor:= 0 to pred(Length(TabsArray)) do
+    if Assigned(TabsArray[yfor].TabForm) and (TabsArray[yfor].TabForm is TabsArray[aFor].ActiveFormTabByClass) then
+    begin
+      tbMain.StylesData['CAPTION.TEXT']:= TForm(TabsArray[yfor].TabForm).Caption;
+
+      tbMain.Visible:= not (TabsArray[yfor].TabForm is TfrmDashboard);
+
+      if TabsArray[yfor].TabForm is TfrmDashboard then
+      begin
+        TfrmDashboard(TabsArray[yfor].TabForm).btnBack.Visible:= False;
+        TfrmDashboard(TabsArray[yfor].TabForm).btnBack.Hint:= '';
+        TfrmDashboard(TabsArray[yfor].TabForm).btnMenu.OnClick:= btnSideMenuClick;
+
+        TfrmDashboard(TabsArray[yfor].TabForm).btnMenu.OnClick:= btnDashboardClick;
+        TfrmDashboard(TabsArray[yfor].TabForm).btnCart.OnClick:= btnDashboardClick;
+        TfrmDashboard(TabsArray[yfor].TabForm).btnCoupons.OnClick:= btnDashboardClick;
+        TfrmDashboard(TabsArray[yfor].TabForm).btnGallery.OnClick:= btnDashboardClick;
+        TfrmDashboard(TabsArray[yfor].TabForm).btnAccount.OnClick:= btnDashboardClick;
+        TfrmDashboard(TabsArray[yfor].TabForm).btnAboutUs.OnClick:= btnDashboardClick;
+
+        lbItemDashBoard.Visible:= False;
+        btnBack.Visible:= False;
+        btnBack.Hint:= '';
+      end;
+
+      TabsArray[yfor].TabItem.IsSelected:= True;
+    end;
+
+  Exit;
 end;
 
 procedure TfrmMain.tCloseTabOnSaveTimer(Sender: TObject);
@@ -428,9 +471,9 @@ begin
     mvSliderMenu.HideMaster;
 end;
 
-procedure TfrmMain.lbItemMenuClick(Sender: TObject);
+procedure TfrmMain.lbMainMenuItemClick(const Sender: TCustomListBox; const Item: TListBoxItem);
 begin
-  LoadScreenByName(TListBoxItem(Sender).Name);
+  LoadScreenByName(TListBoxItem(Item).Name);
 end;
 
 procedure TfrmMain.btnDashboardClick(Sender: TObject);
@@ -438,7 +481,7 @@ begin
   LoadScreenByName(StringReplace(TButton(Sender).Name, 'btn', 'lbItem', [rfReplaceAll]));
 end;
 
-procedure TfrmMain.btnMenuClick(Sender: TObject);
+procedure TfrmMain.btnSideMenuClick(Sender: TObject);
 begin
   if not mvSliderMenu.IsShowed then
     mvSliderMenu.ShowMaster

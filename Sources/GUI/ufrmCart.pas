@@ -150,6 +150,7 @@ begin
 
     ReCalcGPLHeight();
 
+    tOffers.Text:= 'Special Offer (' + IntToStr(DMUnit.OffersPerValue) + '%)';
     tOfferAmount.Text:= '-$' + FloatToStr(DMUnit.OffersAmount);
     tSalesAmount.Text:= '$' + FloatToStr(DMUnit.SalesAmount);
     tSubTotalAmount.Text:= '$' + FloatToStr(DMUnit.GetCartTotalAmount() + DMUnit.SalesAmount - DMUnit.OffersAmount);
@@ -178,6 +179,8 @@ begin
   if TButton(Sender).Tag >= 0 then
   begin
     tReBuildForm.Enabled:= True;
+
+    TDialogService.ShowMessage('This function is not implemented.');
   end;
 end;
 
@@ -201,8 +204,11 @@ procedure TfrmCart.btnCheckoutClick(Sender: TObject);
 begin
   { Create your order befor call function for clearing current cart }
   DMUnit.ClearCart();
-  tReBuildForm.Enabled:= True;
+  DMUnit.OffersPerValue:= 0;
 
+  TDialogService.ShowMessage('Order status: Do not created, beacuse this functionality is not implemented. The cart was automaticaly clear.');
+
+  tReBuildForm.Enabled:= True;
 end;
 
 end.

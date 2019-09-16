@@ -62,7 +62,7 @@ type
     procedure OptionsButtonClick(Sender: TObject);
     procedure ReCalcGPLHeight();
   public
-    function RunForm(const SuccProc: TProc): string;
+    procedure RunForm(const SuccProc: TProc);
 
     property CurrentItemID: Integer read FCurrentItemID write FCurrentItemID;
     property Quantity: Integer read FQuantity write FQuantity;
@@ -94,7 +94,7 @@ begin
   Result:= frmAddToCart;
 end;
 
-function TfrmAddToCart.RunForm(const SuccProc: TProc): string;
+procedure TfrmAddToCart.RunForm(const SuccProc: TProc);
 begin
   FSuccProc:= SuccProc;
   {$IF DEFINED(Win64) or DEFINED(Win32)}
@@ -129,7 +129,6 @@ var
   lMemoryStream: TMemoryStream;
 begin
   TotalPrice:= 0;
-
   if CurrentItemID > 0 then
   begin
     with DMUnit.FDMemTable1 do
@@ -141,14 +140,10 @@ begin
         begin
           ItemName:= FieldByName('Name').AsString;
           tbMain.StylesData['CAPTION.TEXT']:= ItemName;
-
           mDescr.Text:= FieldByName('Description').AsString;
           TotalPrice:= FieldByName('Price').AsFloat * Quantity;
-
           ItemPrice:= FieldByName('Price').AsExtended;
-
           tQuantity.Text:= IntToStr(Quantity);
-
           btnQMinus.Enabled:= Quantity > 1;
 
           lbPreviewMenuItem.BeginUpdate;
@@ -159,7 +154,6 @@ begin
             lLBItem.StyleLookup:= 'ListboxItemAddToCartStyle';
             lLBItem.Tag:= FieldByName('ID').AsInteger;
             lLBItem.Text:= FieldByName('Name').AsString;
-
             lLBItem.HitTest:= False;
 
             {$region ' Load image to stream '}
@@ -174,15 +168,12 @@ begin
               end;
             end;
             {$endregion}
-
             lbPreviewMenuItem.AddObject(lLBItem);
           finally
             lbPreviewMenuItem.EndUpdate;
-
             BuildOptionsList();
           end;
         end;
-
         Next;
       end;
     end;

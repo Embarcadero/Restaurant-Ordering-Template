@@ -4,6 +4,9 @@ interface
 
 uses
   System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
+
+  FMX.DialogService,
+
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.Layouts,
   FMX.Controls.Presentation, FMX.StdCtrls, FMX.Edit;
 
@@ -34,6 +37,7 @@ type
     btnCreateAccount: TButton;
     VertScrollBox1: TVertScrollBox;
     procedure FormCreate(Sender: TObject);
+    procedure btnCreateAccountClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -68,6 +72,11 @@ begin
   eZipCode.TextPrompt:= 'Type Zip Code';
 
   btnCreateAccount.Text:= 'Create Account';
+end;
+
+procedure TfrmAccount.btnCreateAccountClick(Sender: TObject);
+begin
+  TDialogService.ShowMessage('This function is not implemented.');
 end;
 
 end.

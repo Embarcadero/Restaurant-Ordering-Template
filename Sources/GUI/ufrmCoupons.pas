@@ -5,7 +5,7 @@ interface
 uses
   System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
 
-  uDMUnit, System.Rtti, FMX.StdCtrls, Data.DB,
+  uDMUnit, System.Rtti, FMX.StdCtrls, Data.DB, FMX.DialogService,
 
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs,
   FMX.Controls.Presentation, FMX.Layouts, FMX.ListBox;
@@ -45,7 +45,6 @@ end;
 procedure TfrmCoupons.LoadCouponsList();
 var
   lLBItem: TListBoxItem;
-  ifor: Integer;
   lMemoryStream: TMemoryStream;
 begin
   lbCoupons.BeginUpdate;
@@ -62,7 +61,8 @@ begin
       lLBItem.Tag:= FieldByName('ID').AsInteger;
       lLBItem.Text:= FieldByName('Name').AsString;
       lLBItem.StylesData['ExpiresText.Text']:= 'Expires ' + FormatDateTime('dd/MM/yy', FieldByName('ExpiresDate').AsDateTime) + ' - BST (GMP +0' + FieldByName('GMTPlus').AsString + ':00)';
-
+      lLBItem.Hint:= FieldByName('Discount').AsString;
+      lLBItem.ShowHint:= False;
       lLBItem.StylesData['RectDiscount.Visible']:= FieldByName('Discount').AsInteger > 0;
       lLBItem.StylesData['Discount.Text']:= FieldByName('Discount').AsString + '% off';
 
@@ -98,7 +98,8 @@ procedure TfrmCoupons.lbCouponsItemOnClick(Sender: TObject);
 begin
   if (TListBoxItem(Sender).Tag > 0) then
   begin
-    // You can make click action inside this block
+    DMUnit.OffersPerValue:= DMUnit.OffersPerValue + StrToIntDef(TListBoxItem(Sender).Hint, 0);
+    TDialogService.ShowMessage('The selected coupone ' + TListBoxItem(Sender).Hint + '% was successfully added to your cart.');
   end;
 end;
 

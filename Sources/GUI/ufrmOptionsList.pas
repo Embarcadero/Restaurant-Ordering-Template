@@ -30,7 +30,7 @@ type
     procedure BuildOptionsList();
     procedure OptionItemSelect(Sender: TObject);
   public
-    function RunForm(const SuccProc: TProc): string;
+    procedure RunForm(const SuccProc: TProc);
 
     property CurrentItemID: Integer read FCurrentItemID write FCurrentItemID;
   end;
@@ -58,7 +58,7 @@ begin
   Result:= frmOptionsList;
 end;
 
-function TfrmOptionsList.RunForm(const SuccProc: TProc): string;
+procedure TfrmOptionsList.RunForm(const SuccProc: TProc);
 begin
   FSuccProc:= SuccProc;
   {$IF DEFINED(Win64) or DEFINED(Win32)}

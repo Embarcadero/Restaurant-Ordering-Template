@@ -28,8 +28,8 @@ object frmMenu: TfrmMenu
       DefaultItemStyles.ItemStyle = ''
       DefaultItemStyles.GroupHeaderStyle = ''
       DefaultItemStyles.GroupFooterStyle = ''
-      Viewport.Width = 393.000000000000000000
-      Viewport.Height = 703.000000000000000000
+      Viewport.Width = 389.000000000000000000
+      Viewport.Height = 699.000000000000000000
       object ListBoxItem1: TListBoxItem
         Size.Width = 389.000000000000000000
         Size.Height = 130.000000000000000000

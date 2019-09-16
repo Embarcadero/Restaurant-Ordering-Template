@@ -44,7 +44,6 @@ end;
 procedure TfrmMenu.LoadMenuList();
 var
   lLBItem: TListBoxItem;
-  ifor: Integer;
   lMemoryStream: TMemoryStream;
 begin
   lbMenu.BeginUpdate;
