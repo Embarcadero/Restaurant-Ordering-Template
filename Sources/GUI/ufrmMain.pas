@@ -282,7 +282,7 @@ begin
           TfrmDashboard(TabsArray[ifor].TabForm).btnBack.Visible:= False;
           TfrmDashboard(TabsArray[ifor].TabForm).btnBack.Hint:= '';
           TfrmDashboard(TabsArray[ifor].TabForm).btnMenu.OnClick:= btnSideMenuClick;
-
+          // is there a reason this is immediately assigned a new value?
           TfrmDashboard(TabsArray[ifor].TabForm).btnMenu.OnClick:= btnDashboardClick;
           TfrmDashboard(TabsArray[ifor].TabForm).btnCart.OnClick:= btnDashboardClick;
           TfrmDashboard(TabsArray[ifor].TabForm).btnCoupons.OnClick:= btnDashboardClick;
@@ -428,7 +428,7 @@ begin
         TfrmDashboard(TabsArray[yfor].TabForm).btnBack.Visible:= False;
         TfrmDashboard(TabsArray[yfor].TabForm).btnBack.Hint:= '';
         TfrmDashboard(TabsArray[yfor].TabForm).btnMenu.OnClick:= btnSideMenuClick;
-
+        // is there a reason this is immediately assigned a new value?
         TfrmDashboard(TabsArray[yfor].TabForm).btnMenu.OnClick:= btnDashboardClick;
         TfrmDashboard(TabsArray[yfor].TabForm).btnCart.OnClick:= btnDashboardClick;
         TfrmDashboard(TabsArray[yfor].TabForm).btnCoupons.OnClick:= btnDashboardClick;
