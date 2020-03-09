@@ -14,8 +14,12 @@ uses
   FMX.Controls.Presentation, FireDAC.Stan.Intf, FireDAC.Comp.BatchMove,
   FireDAC.Comp.BatchMove.Text;
 
+const
+  cButtonsColor = $FF585858;
+  cGetStarted = 'GetStarted';
+
 type
-  TClassOfForm = Class of TForm;
+  TClassOfForm = class of TForm;
 
   TTabsArray = array of record
     TabItem: TTabItem;
@@ -136,11 +140,11 @@ begin
   // If tab exists
   begin
     // All tabs except Dashboard
-    if (LowerCase(aScreenName) <> LowerCase('lbItemDashBoard')) then
+    if (LowerCase(aScreenName) <> LowerCase(lbItemDashBoard.Name)) then
       AllTabsExceptDashboard(aScreenName)
     else
     // Just Dashboard
-    if LowerCase(aScreenName) = LowerCase('lbItemDashboard') then
+    if LowerCase(aScreenName) = LowerCase(lbItemDashboard.Name) then
       JustDashboard(aScreenName);
   end;
 end;
@@ -160,7 +164,7 @@ begin
   lbItemDashBoard.Visible:= True;
 
   // Dashbord
-  if LowerCase(aScreenName) = LowerCase('lbItemDashboard') then
+  if LowerCase(aScreenName) = LowerCase(lbItemDashboard.Name) then
   begin
     lbItemDashBoard.Visible:= False;
     CallForm(TfrmDashboard);
@@ -169,45 +173,45 @@ begin
   end else
 
   // Profile
-  if LowerCase(aScreenName) = LowerCase('GetStarted') then
+  if LowerCase(aScreenName) = LowerCase(cGetStarted) then
   begin
     tbMain.Visible:= False;
-    CallForm(TfrmGetStarted, TabsArray[Length(TabsArray) - 1].TabItem.Name, True, False, $FF585858);
+    CallForm(TfrmGetStarted, TabsArray[Length(TabsArray) - 1].TabItem.Name, True, False, cButtonsColor);
     TfrmGetStarted(TabsArray[Length(TabsArray) - 1].TabForm).LayoutGetStarted.Parent:= TabsArray[Length(TabsArray) - 1].TabItem;
   end else
 
   // Menu
-  if LowerCase(aScreenName) = LowerCase('lbItemMenu') then
+  if LowerCase(aScreenName) = LowerCase(lbItemMenu.Name) then
   begin
-    CallForm(TfrmMenu, '', True, False, $FF585858);
+    CallForm(TfrmMenu, '', True, False, cButtonsColor);
     TfrmMenu(TabsArray[Length(TabsArray) - 1].TabForm).LayoutContent.Parent:= TabsArray[Length(TabsArray) - 1].TabItem;
   end else
 
   // Coupons
-  if LowerCase(aScreenName) = LowerCase('lbItemCoupons') then
+  if LowerCase(aScreenName) = LowerCase(lbItemCoupons.Name) then
   begin
-    CallForm(TfrmCoupons, TabsArray[Length(TabsArray) - 1].TabItem.Name, False, True, $FF585858);
+    CallForm(TfrmCoupons, TabsArray[Length(TabsArray) - 1].TabItem.Name, False, True, cButtonsColor);
     TfrmCoupons(TabsArray[Length(TabsArray) - 1].TabForm).LayoutContent.Parent:= TabsArray[Length(TabsArray) - 1].TabItem;
   end else
 
   // Account
-  if LowerCase(aScreenName) = LowerCase('lbItemAccount') then
+  if LowerCase(aScreenName) = LowerCase(lbItemAccount.Name) then
   begin
-    CallForm(TfrmAccount, '', True, False, $FF585858);
+    CallForm(TfrmAccount, '', True, False, cButtonsColor);
     TfrmAccount(TabsArray[Length(TabsArray) - 1].TabForm).LayoutContent.Parent:= TabsArray[Length(TabsArray) - 1].TabItem;
   end else
 
   // Gallery
-  if LowerCase(aScreenName) = LowerCase('lbItemGallery') then
+  if LowerCase(aScreenName) = LowerCase(lbItemGallery.Name) then
   begin
-    CallForm(TfrmGallery, '', True, False, $FF585858);
+    CallForm(TfrmGallery, '', True, False, cButtonsColor);
     TfrmGallery(TabsArray[Length(TabsArray) - 1].TabForm).LayoutContent.Parent:= TabsArray[Length(TabsArray) - 1].TabItem;
   end else
 
   // Cart
-  if LowerCase(aScreenName) = LowerCase('lbItemCart') then
+  if LowerCase(aScreenName) = LowerCase(lbItemCart.Name) then
   begin
-    CallForm(TfrmCart, '', True, False, $FF585858);
+    CallForm(TfrmCart, '', True, False, cButtonsColor);
     TfrmCart(TabsArray[Length(TabsArray) - 1].TabForm).LayoutContent.Parent:= TabsArray[Length(TabsArray) - 1].TabItem;
 
     if Length(DMUnit.CartList) = 0 then
@@ -218,9 +222,9 @@ begin
   end else
 
   // About Us
-  if LowerCase(aScreenName) = LowerCase('lbItemAboutUs') then
+  if LowerCase(aScreenName) = LowerCase(lbItemAboutUs.Name) then
   begin
-    CallForm(TfrmAboutUs, '', True, False, $FF585858);
+    CallForm(TfrmAboutUs, '', True, False, cButtonsColor);
     TfrmAboutUs(TabsArray[Length(TabsArray) - 1].TabForm).LayoutContent.Parent:= TabsArray[Length(TabsArray) - 1].TabItem;
   end;
 end;
@@ -281,8 +285,7 @@ begin
         begin
           TfrmDashboard(TabsArray[ifor].TabForm).btnBack.Visible:= False;
           TfrmDashboard(TabsArray[ifor].TabForm).btnBack.Hint:= '';
-          TfrmDashboard(TabsArray[ifor].TabForm).btnMenu.OnClick:= btnSideMenuClick;
-          // is there a reason this is immediately assigned a new value?
+
           TfrmDashboard(TabsArray[ifor].TabForm).btnMenu.OnClick:= btnDashboardClick;
           TfrmDashboard(TabsArray[ifor].TabForm).btnCart.OnClick:= btnDashboardClick;
           TfrmDashboard(TabsArray[ifor].TabForm).btnCoupons.OnClick:= btnDashboardClick;
@@ -330,8 +333,8 @@ begin
   begin
     tShowGetStartedOnStartUp.Enabled:= False;
 
-    LoadScreenByName('lbItemDashboard');
-    LoadScreenByName('GetStarted');
+    LoadScreenByName(lbItemDashboard.Name);
+    LoadScreenByName(cGetStarted);
   end;
 end;
 
@@ -428,7 +431,7 @@ begin
         TfrmDashboard(TabsArray[yfor].TabForm).btnBack.Visible:= False;
         TfrmDashboard(TabsArray[yfor].TabForm).btnBack.Hint:= '';
         TfrmDashboard(TabsArray[yfor].TabForm).btnMenu.OnClick:= btnSideMenuClick;
-        // is there a reason this is immediately assigned a new value?
+
         TfrmDashboard(TabsArray[yfor].TabForm).btnMenu.OnClick:= btnDashboardClick;
         TfrmDashboard(TabsArray[yfor].TabForm).btnCart.OnClick:= btnDashboardClick;
         TfrmDashboard(TabsArray[yfor].TabForm).btnCoupons.OnClick:= btnDashboardClick;
