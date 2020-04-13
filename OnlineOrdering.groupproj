@@ -1,0 +1,36 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{1EB2AF9B-E6CF-4A33-BB0D-273389A11A62}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="Sources\OnlineOrderingTemplate.dproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="OnlineOrderingTemplate">
+        <MSBuild Projects="Sources\OnlineOrderingTemplate.dproj"/>
+    </Target>
+    <Target Name="OnlineOrderingTemplate:Clean">
+        <MSBuild Projects="Sources\OnlineOrderingTemplate.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="OnlineOrderingTemplate:Make">
+        <MSBuild Projects="Sources\OnlineOrderingTemplate.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="OnlineOrderingTemplate"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="OnlineOrderingTemplate:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="OnlineOrderingTemplate:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>
