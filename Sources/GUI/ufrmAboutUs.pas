@@ -82,7 +82,7 @@ var
   lMemoryStream: TMemoryStream;
 begin
   lbAboutUsLogo.BeginUpdate;
-  with DMUnit.FDMemTable5 do
+  with DMUnit.AboutUsTable do
   try
     lbAboutUsLogo.Clear;
 
@@ -152,7 +152,7 @@ begin
   try
     lbContactInfo.Clear;
 
-    with DMUnit.FDMemTable6 do
+    with DMUnit.AboutUsDesciptionTable do
     begin
       First;
       while not Eof do

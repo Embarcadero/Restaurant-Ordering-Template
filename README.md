@@ -24,7 +24,7 @@ The forms implemented in this template:
   * `ufrmMenu` - The form of detailed information about the selected dish from the Menu form
   * `ufrmAccount` - User account adding/editing form
   * `ufrmAddToCart` - form for adding/removing modifiers of the selected dish to/from the Menu
-  * `ufrmOptionsList` - 
+  * `ufrmOptionsList` - is a form that displays and allows the client to select additional dish modifiers (additives). Such as sauce, mustard, etc.
 * **ORM**
   * `uDMUnit`
 
@@ -46,7 +46,13 @@ In order for your data, rather than the test data, to be displayed on the `TList
 * `InsertTestDataForAboutUs ();`
 * `InsertTestDataForContactInfo ();`
 
-From the name of the methods, it is clear which one is responsible for filling out one form or another with the test data. Having studied any of the methods, it becomes clear which of `TFDMemTable1` ..`TFDMemTable6` is used for which form.
+From the name of the methods, it is clear which one is responsible for filling out one form or another with the test data. Having studied any of the methods, it becomes clear which of `TFDMemTable` is used for which form. * * 
+* `MenuListTable` - using in the ufrmMenu and ufrmCart forms
+* `CouponsListTable` - using in the ufrmCoupons form
+* `GalleryListTable` - using in the ufrmGallery form
+* `OptionsListTable` - using in the ufrmOptionsList and ufrmAddToCart forms
+* `AboutUsTable` - using in the ufrmAboutUs and ufrmGetStarted forms
+* `AboutUsDesciptionTable` - using in the ufrmAboutUs and ufrmGetStarted forms
 
 In order to add images to `TFDMemTables`, use `TImageLists` with images already loaded in them. This is done in order to demonstrate how to load an image into the components of the `TQuery` family, and to show how to load images from fields of type `TBlob` into the elements of graphic controls on the form. Such, for example, as `TListBox`.
 
@@ -92,16 +98,16 @@ Icons of graphic elements used in the templates are taken from the resource:
 
 Below is a list of Internet resources from which images were downloaded to design the appearance of the application.
 GetStarted form BG image: 
-* https://wallpapershome.ru/eda/glavnie-blyuda/makaroni-pomidori-olivki-16053.html
-* https://www.almerostudentmansions.com/luxury-takeaway-exeter/
-* https://www.budgetbytes.com/garlic-bread/
-* https://www.epicurious.com/recipes/food/views/spicy-and-greasy-rhode-island-calamari-51237100
-* https://www.alfrescoallnatural.com/recipe/sundried-tomato-chicken-sausage-risotto
-* https://www.yelp.com/biz/presto-pasta-santa-clarita-2
-* https://www.pinterest.com/pin/462393086733346619/
-* https://ru.depositphotos.com/stock-photos/%D0%B4%D0%B5%D1%81%D0%B5%D1%80%D1%82.html?qview=12002700
-* https://ru.depositphotos.com/stock-photos/%D0%B4%D0%B5%D1%81%D0%B5%D1%80%D1%82.html?qview=24212433
-* https://wallpapers.99px.ru/wallpapers/199521/
+* https://www.pexels.com/uk-ua/photo/2762942/
+* https://www.pexels.com/photo/clean-coffee-shop-2467287/
+* https://www.pexels.com/photo/bottle-bread-food-garlic-301539/
+* https://www.pexels.com/photo/plate-of-bread-with-spread-3535380/
+* https://www.pexels.com/photo/basil-leaves-and-avocado-on-sliced-bread-on-white-ceramic-plate-1351238/
+* https://www.pexels.com/photo/food-998244/
+* https://www.pexels.com/photo/pasta-with-vegetable-dish-on-gray-plate-beside-tomato-fruit-on-white-table-769969/
+* https://www.pexels.com/search/Strudel/
+* https://www.pexels.com/uk-ua/photo/918328/
+* https://www.pexels.com/uk-ua/photo/93451/
 
 Social icons:
 * https://icon-icons.com/icon/social-media-facebook-circle/83091 (Free for commercial use)

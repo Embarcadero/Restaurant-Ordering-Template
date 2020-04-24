@@ -62,7 +62,7 @@ end;
 
 procedure TfrmGetStarted.ShowInfoAboutRestaurant();
 begin
-  with DMUnit.FDMemTable5 do
+  with DMUnit.AboutUsTable do
   begin
     First;
     tRestaurantName.Text:= FieldByName('Name').AsString;;
@@ -77,7 +77,7 @@ begin
   try
     lbContactInfo.Clear;
 
-    with DMUnit.FDMemTable6 do
+    with DMUnit.AboutUsDesciptionTable do
     begin
       First;
       while not Eof do

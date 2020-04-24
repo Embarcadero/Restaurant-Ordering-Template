@@ -129,8 +129,8 @@ object frmGetStarted: TfrmGetStarted
             DefaultItemStyles.ItemStyle = ''
             DefaultItemStyles.GroupHeaderStyle = ''
             DefaultItemStyles.GroupFooterStyle = ''
-            Viewport.Width = 329.000000000000000000
-            Viewport.Height = 369.000000000000000000
+            Viewport.Width = 333.000000000000000000
+            Viewport.Height = 373.000000000000000000
             object ListBoxItem2: TListBoxItem
               Size.Width = 329.000000000000000000
               Size.Height = 80.000000000000000000

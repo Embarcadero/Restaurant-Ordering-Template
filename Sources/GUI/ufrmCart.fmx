@@ -132,8 +132,8 @@ object frmCart: TfrmCart
             DefaultItemStyles.ItemStyle = ''
             DefaultItemStyles.GroupHeaderStyle = ''
             DefaultItemStyles.GroupFooterStyle = ''
-            Viewport.Width = 373.000000000000000000
-            Viewport.Height = 124.000000000000000000
+            Viewport.Width = 369.000000000000000000
+            Viewport.Height = 120.000000000000000000
             object ListBoxItem1: TListBoxItem
               Size.Width = 369.000000000000000000
               Size.Height = 120.000000000000000000

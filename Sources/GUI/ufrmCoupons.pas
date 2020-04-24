@@ -48,7 +48,7 @@ var
   lMemoryStream: TMemoryStream;
 begin
   lbCoupons.BeginUpdate;
-  with DMUnit.FDMemTable2 do
+  with DMUnit.CouponsListTable do
   try
     lbCoupons.Clear;
 

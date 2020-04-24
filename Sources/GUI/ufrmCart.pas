@@ -130,7 +130,7 @@ begin
         lLBItem.StyleLookup:= 'ListboxItemCartStyle';
         lLBItem.Tag:= CartList[ifor].Index;
         lLBItem.Text:= CartList[ifor].Name;
-        lLBItem.StylesData['Amount.Text']:= '$' + FloatToStr(GetItemAmount(lLBItem.Tag));
+        lLBItem.StylesData['Amount.Text']:= '$' + DMUnit.MyFormatFloat(GetItemAmount(lLBItem.Tag));
         lLBItem.StylesData['Quantity.Text']:= 'x' + FloatToStr(CartList[ifor].Quantity);
         lLBItem.StylesData['Options.Text']:= BuildOptionsList(lLBItem.Tag);
         lLBItem.HitTest:= False;
@@ -151,17 +151,17 @@ begin
     ReCalcGPLHeight();
 
     tOffers.Text:= 'Special Offer (' + IntToStr(DMUnit.OffersPerValue) + '%)';
-    tOfferAmount.Text:= '-$' + FloatToStr(DMUnit.OffersAmount);
-    tSalesAmount.Text:= '$' + FloatToStr(DMUnit.SalesAmount);
-    tSubTotalAmount.Text:= '$' + FloatToStr(DMUnit.GetCartTotalAmount() + DMUnit.SalesAmount - DMUnit.OffersAmount);
+    tOfferAmount.Text:= '-$' + DMUnit.MyFormatFloat(DMUnit.OffersAmount);
+    tSalesAmount.Text:= '$' + DMUnit.MyFormatFloat(DMUnit.SalesAmount);
+    tSubTotalAmount.Text:= '$' + DMUnit.MyFormatFloat(DMUnit.GetCartTotalAmount() + DMUnit.SalesAmount - DMUnit.OffersAmount);
 
     if (DMUnit.DeliveryFeeAmount = 0) then
       tDeliveryFeeAmount.Text:= 'Free'
     else
-      tDeliveryFeeAmount.Text:= '$' + FloatToStr(DMUnit.DeliveryFeeAmount);
+      tDeliveryFeeAmount.Text:= '$' + DMUnit.MyFormatFloat(DMUnit.DeliveryFeeAmount);
 
-    tTotalWithCollAmount.Text:= '$' + FloatToStr(DMUnit.GetCartTotalAmount() + DMUnit.SalesAmount - DMUnit.OffersAmount);
-    tTotalwithDeliveryAmount.Text:= '$' + FloatToStr(DMUnit.GetCartTotalAmount() + DMUnit.SalesAmount + DMUnit.DeliveryFeeAmount - DMUnit.OffersAmount);
+    tTotalWithCollAmount.Text:= '$' + DMUnit.MyFormatFloat(DMUnit.GetCartTotalAmount() + DMUnit.SalesAmount - DMUnit.OffersAmount);
+    tTotalwithDeliveryAmount.Text:= '$' + DMUnit.MyFormatFloat(DMUnit.GetCartTotalAmount() + DMUnit.SalesAmount + DMUnit.DeliveryFeeAmount - DMUnit.OffersAmount);
   end;
 end;
 

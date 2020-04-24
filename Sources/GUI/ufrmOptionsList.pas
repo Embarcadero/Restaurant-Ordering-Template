@@ -94,7 +94,7 @@ begin
 
     if CurrentItemID > 0 then
     begin
-      with DMUnit.FDMemTable4 do
+      with DMUnit.OptionsListTable do
       begin
         First;
         while not Eof do
@@ -134,7 +134,7 @@ end;
 procedure TfrmOptionsList.OptionItemSelect(Sender: TObject);
 begin
   if TListBoxItem(Sender).Tag > 0 then
-    with DMUnit.FDMemTable4 do
+    with DMUnit.OptionsListTable do
     begin
       First;
       while not Eof do

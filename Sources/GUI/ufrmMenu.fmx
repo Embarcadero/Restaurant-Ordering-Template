@@ -20,7 +20,7 @@ object frmMenu: TfrmMenu
     object lbMenu: TListBox
       Align = Client
       Size.Width = 393.000000000000000000
-      Size.Height = 703.000000000000000000
+      Size.Height = 648.000000000000000000
       Size.PlatformDefault = False
       StyleLookup = 'ListboxWhiteNoSelStyle'
       TabOrder = 0
@@ -28,8 +28,8 @@ object frmMenu: TfrmMenu
       DefaultItemStyles.ItemStyle = ''
       DefaultItemStyles.GroupHeaderStyle = ''
       DefaultItemStyles.GroupFooterStyle = ''
-      Viewport.Width = 389.000000000000000000
-      Viewport.Height = 699.000000000000000000
+      Viewport.Width = 393.000000000000000000
+      Viewport.Height = 648.000000000000000000
       object ListBoxItem1: TListBoxItem
         Size.Width = 389.000000000000000000
         Size.Height = 130.000000000000000000
@@ -46,6 +46,27 @@ object frmMenu: TfrmMenu
         StyleLookup = 'ListboxItemMenuImgStyle'
         TabOrder = 1
         Text = 'ListBoxItem2'
+      end
+    end
+    object LayoutCheckOut: TLayout
+      Align = Bottom
+      Position.Y = 648.000000000000000000
+      Size.Width = 393.000000000000000000
+      Size.Height = 55.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 19
+      object btnCheckOut: TButton
+        Align = Client
+        Margins.Left = 20.000000000000000000
+        Margins.Top = 10.000000000000000000
+        Margins.Right = 20.000000000000000000
+        Margins.Bottom = 10.000000000000000000
+        Size.Width = 353.000000000000000000
+        Size.Height = 35.000000000000000000
+        Size.PlatformDefault = False
+        StyleLookup = 'ButtonGetStartedStyle'
+        TabOrder = 0
+        Text = 'Check-out'
       end
     end
   end

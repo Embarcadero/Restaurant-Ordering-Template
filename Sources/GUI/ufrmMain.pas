@@ -74,6 +74,8 @@ type
 
     function CheckIsFormAssigned(aFormClass: TClass = nil): Boolean;
     procedure SetActiveTab(aFor: Integer = -1);
+
+    procedure btnMenuCheckOutOnClick(Sender: TObject);
   public
     property TabsArray: TTabsArray read FTabsArray write FTabsArray;
     property TabForClosingName: string read FTabForClosingName write FTabForClosingName;
@@ -185,6 +187,7 @@ begin
   begin
     CallForm(TfrmMenu, '', True, False, cButtonsColor);
     TfrmMenu(TabsArray[Length(TabsArray) - 1].TabForm).LayoutContent.Parent:= TabsArray[Length(TabsArray) - 1].TabItem;
+    TfrmMenu(TabsArray[Length(TabsArray) - 1].TabForm).btnCheckOut.OnClick:= btnMenuCheckOutOnClick;
   end else
 
   // Coupons
@@ -241,6 +244,12 @@ begin
         begin
           TDialogService.ShowMessage('The cart is empty. First you need to add some items from menu.');
           Exit;
+        end;
+
+        if  Assigned(TabsArray[ifor].TabForm) and (TabsArray[ifor].TabForm is TfrmMenu) and (Length(DMUnit.CartList) > 0) then
+        begin
+          TfrmMenu(TabsArray[ifor].TabForm).LayoutCheckOut.Visible:= True;
+          TfrmMenu(TabsArray[ifor].TabForm).btnCheckOut.HitTest:= True;
         end;
 
         tbMain.Visible:= not (TabsArray[ifor].TabForm is TfrmDashboard);
@@ -495,6 +504,11 @@ end;
 procedure TfrmMain.btnBackClick(Sender: TObject);
 begin
   tabItembtnCloseClick(Sender);
+end;
+
+procedure TfrmMain.btnMenuCheckOutOnClick(Sender: TObject);
+begin
+  LoadScreenByName(lbItemCart.Name);
 end;
 
 end.

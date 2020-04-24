@@ -50,7 +50,7 @@ var
   lMemoryStream: TMemoryStream;
 begin
   lbGallery.BeginUpdate;
-  with DMUnit.FDMemTable3 do
+  with DMUnit.GalleryListTable do
   try
     lbGallery.Clear;
 

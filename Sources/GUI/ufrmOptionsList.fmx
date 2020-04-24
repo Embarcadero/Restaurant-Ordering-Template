@@ -26,8 +26,8 @@ object frmOptionsList: TfrmOptionsList
     DefaultItemStyles.GroupHeaderStyle = ''
     DefaultItemStyles.GroupFooterStyle = ''
     OnItemClick = lbOptionsItemClick
-    Viewport.Width = 369.000000000000000000
-    Viewport.Height = 649.000000000000000000
+    Viewport.Width = 373.000000000000000000
+    Viewport.Height = 653.000000000000000000
     object ListBoxItem1: TListBoxItem
       Size.Width = 369.000000000000000000
       Size.Height = 35.000000000000000000

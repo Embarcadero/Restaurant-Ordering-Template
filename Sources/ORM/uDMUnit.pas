@@ -28,43 +28,44 @@ type
   end;
 
   TDMUnit = class(TDataModule)
-    FDMemTable1: TFDMemTable;
-    FDMemTable1ID: TIntegerField;
-    FDMemTable1Image: TBlobField;
+    MenuListTable: TFDMemTable;
+    MenuListTableID: TIntegerField;
+    MenuListTableImage: TBlobField;
     ImageListContactsExample: TImageList;
-    FDMemTable1LinkTo: TIntegerField;
-    FDMemTable1Name: TStringField;
-    FDMemTable1Description: TStringField;
-    FDMemTable1Opacity: TFloatField;
-    FDMemTable1Price: TFloatField;
-    FDMemTable2: TFDMemTable;
+    MenuListTableLinkTo: TIntegerField;
+    MenuListTableName: TStringField;
+    MenuListTableDescription: TStringField;
+    MenuListTableOpacity: TFloatField;
+    MenuListTablePrice: TFloatField;
+    CouponsListTable: TFDMemTable;
     IntegerField1: TIntegerField;
     BlobField1: TBlobField;
     StringField1: TStringField;
-    FDMemTable2Discount: TIntegerField;
-    FDMemTable2ExpiresDate: TDateField;
-    FDMemTable2GMTPlus: TIntegerField;
+    CouponsListTableDiscount: TIntegerField;
+    CouponsListTableExpiresDate: TDateField;
+    CouponsListTableGMTPlus: TIntegerField;
     ilCoupons: TImageList;
-    FDMemTable3: TFDMemTable;
+    GalleryListTable: TFDMemTable;
     IntegerField2: TIntegerField;
     BlobField2: TBlobField;
     StringField2: TStringField;
-    FDMemTable1LageImage: TBlobField;
+    MenuListTableLageImage: TBlobField;
     ilMenuBigImgs: TImageList;
-    FDMemTable4: TFDMemTable;
+    OptionsListTable: TFDMemTable;
     IntegerField3: TIntegerField;
     StringField3: TStringField;
-    FDMemTable4Price: TFloatField;
-    FDMemTable4OwnerItemID: TIntegerField;
-    FDMemTable4IsSelected: TBooleanField;
-    FDMemTable5: TFDMemTable;
+    OptionsListTablePrice: TFloatField;
+    OptionsListTableOwnerItemID: TIntegerField;
+    OptionsListTableIsSelected: TBooleanField;
+    AboutUsTable: TFDMemTable;
     IntegerField4: TIntegerField;
     BlobField3: TBlobField;
-    FDMemTable5Name: TStringField;
-    FDMemTable6: TFDMemTable;
+    AboutUsTableName: TStringField;
+    AboutUsDesciptionTable: TFDMemTable;
     IntegerField5: TIntegerField;
     StringField4: TStringField;
     StringField9: TStringField;
+    ilAboutUs: TImageList;
     procedure DataModuleCreate(Sender: TObject);
   private
     FCloseFormClass: TClass;
@@ -93,6 +94,8 @@ type
     procedure DelItemFromCart(aItemIndex: Integer = 0);
     procedure ClearCart();
     function GetCartTotalAmount(): Extended;
+
+    function MyFormatFloat(aFloat: Extended = 0; aFloatSigns: Integer = 2): string;
 
     (* PROPERTIES *)
     property CloseFormClass: TClass read FCloseFormClass write FCloseFormClass;
@@ -136,13 +139,13 @@ end;
 
 procedure TDMUnit.AddDataToFDMT1(aID: Integer; aLinkTo: Integer; aOpacity: Extended; const aName: string; const aDescription: string; aPrice: Extended);
 begin
-  FDMemTable1.Insert;
-  FDMemTable1.FieldByName('ID').AsInteger:= aID;
-  FDMemTable1.FieldByName('LinkTo').AsInteger:= aLinkTo;
-  FDMemTable1.FieldByName('Opacity').AsFloat:= aOpacity;
-  FDMemTable1.FieldByName('Name').AsString:= aName;
-  FDMemTable1.FieldByName('Description').AsString:= aDescription;
-  FDMemTable1.FieldByName('Price').AsFloat:= aPrice;
+  MenuListTable.Insert;
+  MenuListTable.FieldByName('ID').AsInteger:= aID;
+  MenuListTable.FieldByName('LinkTo').AsInteger:= aLinkTo;
+  MenuListTable.FieldByName('Opacity').AsFloat:= aOpacity;
+  MenuListTable.FieldByName('Name').AsString:= aName;
+  MenuListTable.FieldByName('Description').AsString:= aDescription;
+  MenuListTable.FieldByName('Price').AsFloat:= aPrice;
 end;
 
 procedure TDMUnit.InsertTestDataForTheMenu();
@@ -151,7 +154,7 @@ var
   lMemoryStreamBig: TMemoryStream;
 begin
   {$region ' for top listbox '}
-  FDMemTable1.Open;
+  MenuListTable.Open;
 
   // 7 item
   AddDataToFDMT1(9, 8, 1, 'Strudel', 'Fantastic taste and delicious aroma of freshly baked strudel.', 4.75);
@@ -161,7 +164,7 @@ begin
   try
     ImageListContactsExample.Source[5].MultiResBitmap.Bitmaps[1].SaveToStream(lMemoryStream);
     lMemoryStream.Position:= 0;
-    (FDMemTable1.FieldByName('Image') as TBlobField).LoadFromStream(lMemoryStream);
+    (MenuListTable.FieldByName('Image') as TBlobField).LoadFromStream(lMemoryStream);
   finally
     lMemoryStream.Free;
   end;
@@ -171,16 +174,16 @@ begin
   try
     ilMenuBigImgs.Source[5].MultiResBitmap.Bitmaps[1].SaveToStream(lMemoryStreamBig);
     lMemoryStreamBig.Position:= 0;
-    (FDMemTable1.FieldByName('LageImage') as TBlobField).LoadFromStream(lMemoryStreamBig);
+    (MenuListTable.FieldByName('LageImage') as TBlobField).LoadFromStream(lMemoryStreamBig);
   finally
     lMemoryStreamBig.Free;
   end;
 
-  FDMemTable1.Post;
+  MenuListTable.Post;
 
   // 8 item
   AddDataToFDMT1(8, 0, 1, '3. Desserts', '', 0);
-  FDMemTable1.Post;
+  MenuListTable.Post;
 
   // 7 item
   AddDataToFDMT1(7, 5, 0.4, 'Pasta presto', 'Fine and delicate parmesan flavor...', 9.30);
@@ -189,7 +192,7 @@ begin
   try
     ImageListContactsExample.Source[4].MultiResBitmap.Bitmaps[1].SaveToStream(lMemoryStream);
     lMemoryStream.Position:= 0;
-    (FDMemTable1.FieldByName('Image') as TBlobField).LoadFromStream(lMemoryStream);
+    (MenuListTable.FieldByName('Image') as TBlobField).LoadFromStream(lMemoryStream);
   finally
     lMemoryStream.Free;
   end;
@@ -199,12 +202,12 @@ begin
   try
     ilMenuBigImgs.Source[4].MultiResBitmap.Bitmaps[1].SaveToStream(lMemoryStreamBig);
     lMemoryStreamBig.Position:= 0;
-    (FDMemTable1.FieldByName('LageImage') as TBlobField).LoadFromStream(lMemoryStreamBig);
+    (MenuListTable.FieldByName('LageImage') as TBlobField).LoadFromStream(lMemoryStreamBig);
   finally
     lMemoryStreamBig.Free;
   end;
 
-  FDMemTable1.Post;
+  MenuListTable.Post;
 
   // 6 item
   AddDataToFDMT1(6, 5, 1, 'Risotto Fresco', 'Creamy white wine risotto with oak-...', 11.00);
@@ -213,7 +216,7 @@ begin
   try
     ImageListContactsExample.Source[3].MultiResBitmap.Bitmaps[1].SaveToStream(lMemoryStream);
     lMemoryStream.Position:= 0;
-    (FDMemTable1.FieldByName('Image') as TBlobField).LoadFromStream(lMemoryStream);
+    (MenuListTable.FieldByName('Image') as TBlobField).LoadFromStream(lMemoryStream);
   finally
     lMemoryStream.Free;
   end;
@@ -223,16 +226,16 @@ begin
   try
     ilMenuBigImgs.Source[3].MultiResBitmap.Bitmaps[1].SaveToStream(lMemoryStreamBig);
     lMemoryStreamBig.Position:= 0;
-    (FDMemTable1.FieldByName('LageImage') as TBlobField).LoadFromStream(lMemoryStreamBig);
+    (MenuListTable.FieldByName('LageImage') as TBlobField).LoadFromStream(lMemoryStreamBig);
   finally
     lMemoryStreamBig.Free;
   end;
 
-  FDMemTable1.Post;
+  MenuListTable.Post;
 
   // 5 item
   AddDataToFDMT1(5, 0, 1, '2. Mains', '', 0);
-  FDMemTable1.Post;
+  MenuListTable.Post;
 
   // 4 item
   AddDataToFDMT1(4, 1, 0.4, 'Garlic Bread', 'Freshly baked garlic bread. Soft and lightly...', 3.50);
@@ -241,7 +244,7 @@ begin
   try
     ImageListContactsExample.Source[2].MultiResBitmap.Bitmaps[1].SaveToStream(lMemoryStream);
     lMemoryStream.Position:= 0;
-    (FDMemTable1.FieldByName('Image') as TBlobField).LoadFromStream(lMemoryStream);
+    (MenuListTable.FieldByName('Image') as TBlobField).LoadFromStream(lMemoryStream);
   finally
     lMemoryStream.Free;
   end;
@@ -251,12 +254,12 @@ begin
   try
     ilMenuBigImgs.Source[2].MultiResBitmap.Bitmaps[1].SaveToStream(lMemoryStreamBig);
     lMemoryStreamBig.Position:= 0;
-    (FDMemTable1.FieldByName('LageImage') as TBlobField).LoadFromStream(lMemoryStreamBig);
+    (MenuListTable.FieldByName('LageImage') as TBlobField).LoadFromStream(lMemoryStreamBig);
   finally
     lMemoryStreamBig.Free;
   end;
 
-  FDMemTable1.Post;
+  MenuListTable.Post;
 
   // 3 item
   AddDataToFDMT1(3, 1, 1, 'Spicy Calamari', 'Tender calamari, lightly breaded and soft...', 4.95);
@@ -265,7 +268,7 @@ begin
   try
     ImageListContactsExample.Source[1].MultiResBitmap.Bitmaps[1].SaveToStream(lMemoryStream);
     lMemoryStream.Position:= 0;
-    (FDMemTable1.FieldByName('Image') as TBlobField).LoadFromStream(lMemoryStream);
+    (MenuListTable.FieldByName('Image') as TBlobField).LoadFromStream(lMemoryStream);
   finally
     lMemoryStream.Free;
   end;
@@ -275,12 +278,12 @@ begin
   try
     ilMenuBigImgs.Source[1].MultiResBitmap.Bitmaps[1].SaveToStream(lMemoryStreamBig);
     lMemoryStreamBig.Position:= 0;
-    (FDMemTable1.FieldByName('LageImage') as TBlobField).LoadFromStream(lMemoryStreamBig);
+    (MenuListTable.FieldByName('LageImage') as TBlobField).LoadFromStream(lMemoryStreamBig);
   finally
     lMemoryStreamBig.Free;
   end;
 
-  FDMemTable1.Post;
+  MenuListTable.Post;
 
   // 2 item
   AddDataToFDMT1(2, 1, 0.4, 'Garlic Bread', 'Perfect light garlic bread', 10);
@@ -289,7 +292,7 @@ begin
   try
     ImageListContactsExample.Source[0].MultiResBitmap.Bitmaps[1].SaveToStream(lMemoryStream);
     lMemoryStream.Position:= 0;
-    (FDMemTable1.FieldByName('Image') as TBlobField).LoadFromStream(lMemoryStream);
+    (MenuListTable.FieldByName('Image') as TBlobField).LoadFromStream(lMemoryStream);
   finally
     lMemoryStream.Free;
   end;
@@ -299,125 +302,125 @@ begin
   try
     ilMenuBigImgs.Source[0].MultiResBitmap.Bitmaps[1].SaveToStream(lMemoryStreamBig);
     lMemoryStreamBig.Position:= 0;
-    (FDMemTable1.FieldByName('LageImage') as TBlobField).LoadFromStream(lMemoryStreamBig);
+    (MenuListTable.FieldByName('LageImage') as TBlobField).LoadFromStream(lMemoryStreamBig);
   finally
     lMemoryStreamBig.Free;
   end;
 
-  FDMemTable1.Post;
+  MenuListTable.Post;
 
   // 1 item
   AddDataToFDMT1(1, 0, 1, '1. Starters', '', 0);
-  FDMemTable1.Post;
+  MenuListTable.Post;
 end;
 
 procedure TDMUnit.InsertTestDataForTheOptions();
 begin
-  FDMemTable4.Open;
+  OptionsListTable.Open;
 
   //5. Owner Item 3
-  FDMemTable4.Insert;
-  FDMemTable4.FieldByName('ID').AsInteger:= 5;
-  FDMemTable4.FieldByName('OwnerItemID').AsInteger:= 3;
-  FDMemTable4.FieldByName('Price').AsFloat:= 1;
-  FDMemTable4.FieldByName('Name').AsString:= 'Garlic';
-  FDMemTable4.FieldByName('IsSelected').AsBoolean:= False;
-  FDMemTable4.Post;
+  OptionsListTable.Insert;
+  OptionsListTable.FieldByName('ID').AsInteger:= 5;
+  OptionsListTable.FieldByName('OwnerItemID').AsInteger:= 3;
+  OptionsListTable.FieldByName('Price').AsFloat:= 1;
+  OptionsListTable.FieldByName('Name').AsString:= 'Garlic';
+  OptionsListTable.FieldByName('IsSelected').AsBoolean:= False;
+  OptionsListTable.Post;
 
   //4. Owner Item 3
-  FDMemTable4.Insert;
-  FDMemTable4.FieldByName('ID').AsInteger:= 4;
-  FDMemTable4.FieldByName('OwnerItemID').AsInteger:= 3;
-  FDMemTable4.FieldByName('Price').AsFloat:= 1;
-  FDMemTable4.FieldByName('Name').AsString:= 'Spicy';
-  FDMemTable4.FieldByName('IsSelected').AsBoolean:= True;
-  FDMemTable4.Post;
+  OptionsListTable.Insert;
+  OptionsListTable.FieldByName('ID').AsInteger:= 4;
+  OptionsListTable.FieldByName('OwnerItemID').AsInteger:= 3;
+  OptionsListTable.FieldByName('Price').AsFloat:= 1;
+  OptionsListTable.FieldByName('Name').AsString:= 'Spicy';
+  OptionsListTable.FieldByName('IsSelected').AsBoolean:= True;
+  OptionsListTable.Post;
 
   //3. Owner Item 2
-  FDMemTable4.Insert;
-  FDMemTable4.FieldByName('ID').AsInteger:= 3;
-  FDMemTable4.FieldByName('OwnerItemID').AsInteger:= 2;
-  FDMemTable4.FieldByName('Price').AsFloat:= 1;
-  FDMemTable4.FieldByName('Name').AsString:= 'Garlic';
-  FDMemTable4.FieldByName('IsSelected').AsBoolean:= False;
-  FDMemTable4.Post;
+  OptionsListTable.Insert;
+  OptionsListTable.FieldByName('ID').AsInteger:= 3;
+  OptionsListTable.FieldByName('OwnerItemID').AsInteger:= 2;
+  OptionsListTable.FieldByName('Price').AsFloat:= 1;
+  OptionsListTable.FieldByName('Name').AsString:= 'Garlic';
+  OptionsListTable.FieldByName('IsSelected').AsBoolean:= False;
+  OptionsListTable.Post;
 
   //2. Owner Item 2
-  FDMemTable4.Insert;
-  FDMemTable4.FieldByName('ID').AsInteger:= 2;
-  FDMemTable4.FieldByName('OwnerItemID').AsInteger:= 2;
-  FDMemTable4.FieldByName('Price').AsFloat:= 1;
-  FDMemTable4.FieldByName('Name').AsString:= 'Sause';
-  FDMemTable4.FieldByName('IsSelected').AsBoolean:= False;
-  FDMemTable4.Post;
+  OptionsListTable.Insert;
+  OptionsListTable.FieldByName('ID').AsInteger:= 2;
+  OptionsListTable.FieldByName('OwnerItemID').AsInteger:= 2;
+  OptionsListTable.FieldByName('Price').AsFloat:= 1;
+  OptionsListTable.FieldByName('Name').AsString:= 'Sause';
+  OptionsListTable.FieldByName('IsSelected').AsBoolean:= False;
+  OptionsListTable.Post;
 
   //1. Owner Item 2
-  FDMemTable4.Insert;
-  FDMemTable4.FieldByName('ID').AsInteger:= 1;
-  FDMemTable4.FieldByName('OwnerItemID').AsInteger:= 2;
-  FDMemTable4.FieldByName('Price').AsFloat:= 1;
-  FDMemTable4.FieldByName('Name').AsString:= 'Onion';
-  FDMemTable4.FieldByName('IsSelected').AsBoolean:= False;
-  FDMemTable4.Post;
+  OptionsListTable.Insert;
+  OptionsListTable.FieldByName('ID').AsInteger:= 1;
+  OptionsListTable.FieldByName('OwnerItemID').AsInteger:= 2;
+  OptionsListTable.FieldByName('Price').AsFloat:= 1;
+  OptionsListTable.FieldByName('Name').AsString:= 'Onion';
+  OptionsListTable.FieldByName('IsSelected').AsBoolean:= False;
+  OptionsListTable.Post;
 end;
 
 procedure TDMUnit.InsertTestDataForTheCoupons();
 var
   lMemoryStream: TMemoryStream;
 begin
-  FDMemTable2.Open;
+  CouponsListTable.Open;
 
   // 2 item
-  FDMemTable2.Insert;
-  FDMemTable2.FieldByName('ID').AsInteger:= 2;
-  FDMemTable2.FieldByName('Discount').AsInteger:= 10;
-  FDMemTable2.FieldByName('ExpiresDate').AsDateTime:= TDate(IncDay(Now, 2));
-  FDMemTable2.FieldByName('Name').AsString:= 'Welcom Offer';
-  FDMemTable2.FieldByName('GMTPlus').AsInteger:= 1;
+  CouponsListTable.Insert;
+  CouponsListTable.FieldByName('ID').AsInteger:= 2;
+  CouponsListTable.FieldByName('Discount').AsInteger:= 10;
+  CouponsListTable.FieldByName('ExpiresDate').AsDateTime:= TDate(IncDay(Now, 2));
+  CouponsListTable.FieldByName('Name').AsString:= 'Welcom Offer';
+  CouponsListTable.FieldByName('GMTPlus').AsInteger:= 1;
 
   lMemoryStream:= TMemoryStream.Create;
   try
     ilCoupons.Source[1].MultiResBitmap.Bitmaps[1].SaveToStream(lMemoryStream);
     lMemoryStream.Position:= 0;
-    (FDMemTable2.FieldByName('Image') as TBlobField).LoadFromStream(lMemoryStream);
+    (CouponsListTable.FieldByName('Image') as TBlobField).LoadFromStream(lMemoryStream);
   finally
     lMemoryStream.Free;
   end;
 
-  FDMemTable2.Post;
+  CouponsListTable.Post;
 
   // 1 item
-  FDMemTable2.Insert;
-  FDMemTable2.FieldByName('ID').AsInteger:= 1;
-  FDMemTable2.FieldByName('Discount').AsInteger:= 20;
-  FDMemTable2.FieldByName('ExpiresDate').AsDateTime:= TDate(IncDay(Now, 5));
-  FDMemTable2.FieldByName('Name').AsString:= 'Dessert Coupon';
-  FDMemTable2.FieldByName('GMTPlus').AsInteger:= 1;
+  CouponsListTable.Insert;
+  CouponsListTable.FieldByName('ID').AsInteger:= 1;
+  CouponsListTable.FieldByName('Discount').AsInteger:= 20;
+  CouponsListTable.FieldByName('ExpiresDate').AsDateTime:= TDate(IncDay(Now, 5));
+  CouponsListTable.FieldByName('Name').AsString:= 'Dessert Coupon';
+  CouponsListTable.FieldByName('GMTPlus').AsInteger:= 1;
 
   lMemoryStream:= TMemoryStream.Create;
   try
     ilCoupons.Source[0].MultiResBitmap.Bitmaps[1].SaveToStream(lMemoryStream);
     lMemoryStream.Position:= 0;
-    (FDMemTable2.FieldByName('Image') as TBlobField).LoadFromStream(lMemoryStream);
+    (CouponsListTable.FieldByName('Image') as TBlobField).LoadFromStream(lMemoryStream);
   finally
     lMemoryStream.Free;
   end;
 
-  FDMemTable2.Post;
+  CouponsListTable.Post;
 end;
 
 procedure TDMUnit.AddDataToFDMT3(aID: Integer; const aName: string);
 begin
-  FDMemTable3.Insert;
-  FDMemTable3.FieldByName('ID').AsInteger:= aID;
-  FDMemTable3.FieldByName('Name').AsString:= aName;
+  GalleryListTable.Insert;
+  GalleryListTable.FieldByName('ID').AsInteger:= aID;
+  GalleryListTable.FieldByName('Name').AsString:= aName;
 end;
 
 procedure TDMUnit.InsertTestDataForTheGallery();
 var
   lMemoryStream: TMemoryStream;
 begin
-  FDMemTable3.Open;
+  GalleryListTable.Open;
 
   // 4 item
   AddDataToFDMT3(4, 'Photo 4');
@@ -425,12 +428,12 @@ begin
   try
     ImageListContactsExample.Source[3].MultiResBitmap.Bitmaps[1].SaveToStream(lMemoryStream);
     lMemoryStream.Position:= 0;
-    (FDMemTable3.FieldByName('Image') as TBlobField).LoadFromStream(lMemoryStream);
+    (GalleryListTable.FieldByName('Image') as TBlobField).LoadFromStream(lMemoryStream);
   finally
     lMemoryStream.Free;
   end;
 
-  FDMemTable3.Post;
+  GalleryListTable.Post;
 
   // 3 item
   AddDataToFDMT3(3, 'Photo 3');
@@ -438,12 +441,12 @@ begin
   try
     ImageListContactsExample.Source[2].MultiResBitmap.Bitmaps[1].SaveToStream(lMemoryStream);
     lMemoryStream.Position:= 0;
-    (FDMemTable3.FieldByName('Image') as TBlobField).LoadFromStream(lMemoryStream);
+    (GalleryListTable.FieldByName('Image') as TBlobField).LoadFromStream(lMemoryStream);
   finally
     lMemoryStream.Free;
   end;
 
-  FDMemTable3.Post;
+  GalleryListTable.Post;
 
   // 2 item
   AddDataToFDMT3(2, 'Photo 2');
@@ -451,12 +454,12 @@ begin
   try
     ImageListContactsExample.Source[1].MultiResBitmap.Bitmaps[1].SaveToStream(lMemoryStream);
     lMemoryStream.Position:= 0;
-    (FDMemTable3.FieldByName('Image') as TBlobField).LoadFromStream(lMemoryStream);
+    (GalleryListTable.FieldByName('Image') as TBlobField).LoadFromStream(lMemoryStream);
   finally
     lMemoryStream.Free;
   end;
 
-  FDMemTable3.Post;
+  GalleryListTable.Post;
 
   // 1 item
   AddDataToFDMT3(1, 'Photo 1');
@@ -464,68 +467,68 @@ begin
   try
     ImageListContactsExample.Source[0].MultiResBitmap.Bitmaps[1].SaveToStream(lMemoryStream);
     lMemoryStream.Position:= 0;
-    (FDMemTable3.FieldByName('Image') as TBlobField).LoadFromStream(lMemoryStream);
+    (GalleryListTable.FieldByName('Image') as TBlobField).LoadFromStream(lMemoryStream);
   finally
     lMemoryStream.Free;
   end;
 
-  FDMemTable3.Post;
+  GalleryListTable.Post;
 end;
 
 procedure TDMUnit.InsertTestDataForAboutUs();
 var
   lMemoryStream: TMemoryStream;
 begin
-  FDMemTable5.Open;
+  AboutUsTable.Open;
 
   // 1 item
-  FDMemTable5.Insert;
-  FDMemTable5.FieldByName('ID').AsInteger:= 1;
-  FDMemTable5.FieldByName('Name').AsString:= 'LA COZZA INFURIATA';
+  AboutUsTable.Insert;
+  AboutUsTable.FieldByName('ID').AsInteger:= 1;
+  AboutUsTable.FieldByName('Name').AsString:= 'LA COZZA INFURIATA';
 
   lMemoryStream:= TMemoryStream.Create;
   try
-    ilMenuBigImgs.Source[6].MultiResBitmap.Bitmaps[1].SaveToStream(lMemoryStream);
+    ilAboutUs.Source[0].MultiResBitmap.Bitmaps[1].SaveToStream(lMemoryStream);
     lMemoryStream.Position:= 0;
-    (FDMemTable5.FieldByName('Image') as TBlobField).LoadFromStream(lMemoryStream);
+    (AboutUsTable.FieldByName('Image') as TBlobField).LoadFromStream(lMemoryStream);
   finally
     lMemoryStream.Free;
   end;
 
-  FDMemTable5.Post;
+  AboutUsTable.Post;
 end;
 
 procedure TDMUnit.InsertTestDataForContactInfo();
 begin
-  FDMemTable6.Open;
+  AboutUsDesciptionTable.Open;
 
   // 4 item
-  FDMemTable6.Insert;
-  FDMemTable6.FieldByName('ID').AsInteger:= 4;
-  FDMemTable6.FieldByName('Name').AsString:= 'ABOUT US';
-  FDMemTable6.FieldByName('Description').AsString:= 'Fresh, organic produce cooked to order.';
-  FDMemTable6.Post;
+  AboutUsDesciptionTable.Insert;
+  AboutUsDesciptionTable.FieldByName('ID').AsInteger:= 4;
+  AboutUsDesciptionTable.FieldByName('Name').AsString:= 'ABOUT US';
+  AboutUsDesciptionTable.FieldByName('Description').AsString:= 'Fresh, organic produce cooked to order.';
+  AboutUsDesciptionTable.Post;
 
   // 3 item
-  FDMemTable6.Insert;
-  FDMemTable6.FieldByName('ID').AsInteger:= 3;
-  FDMemTable6.FieldByName('Name').AsString:= 'EMAIL';
-  FDMemTable6.FieldByName('Description').AsString:= EmailUs;
-  FDMemTable6.Post;
+  AboutUsDesciptionTable.Insert;
+  AboutUsDesciptionTable.FieldByName('ID').AsInteger:= 3;
+  AboutUsDesciptionTable.FieldByName('Name').AsString:= 'EMAIL';
+  AboutUsDesciptionTable.FieldByName('Description').AsString:= EmailUs;
+  AboutUsDesciptionTable.Post;
 
   // 2 item
-  FDMemTable6.Insert;
-  FDMemTable6.FieldByName('ID').AsInteger:= 2;
-  FDMemTable6.FieldByName('Name').AsString:= 'PHONE NUMBER';
-  FDMemTable6.FieldByName('Description').AsString:= PhoneNumber;
-  FDMemTable6.Post;
+  AboutUsDesciptionTable.Insert;
+  AboutUsDesciptionTable.FieldByName('ID').AsInteger:= 2;
+  AboutUsDesciptionTable.FieldByName('Name').AsString:= 'PHONE NUMBER';
+  AboutUsDesciptionTable.FieldByName('Description').AsString:= PhoneNumber;
+  AboutUsDesciptionTable.Post;
 
   // 1 item
-  FDMemTable6.Insert;
-  FDMemTable6.FieldByName('ID').AsInteger:= 1;
-  FDMemTable6.FieldByName('Name').AsString:= 'ADDRESS';
-  FDMemTable6.FieldByName('Description').AsString:= '150 London Wall Barbican EC2Y 5HN';
-  FDMemTable6.Post;
+  AboutUsDesciptionTable.Insert;
+  AboutUsDesciptionTable.FieldByName('ID').AsInteger:= 1;
+  AboutUsDesciptionTable.FieldByName('Name').AsString:= 'ADDRESS';
+  AboutUsDesciptionTable.FieldByName('Description').AsString:= '150 London Wall Barbican EC2Y 5HN';
+  AboutUsDesciptionTable.Post;
 end;
 
 function TDMUnit.AddItemToCart(aItemId: int64 = 0; aOwnerID: int64 = 0; const aItemName: string = ''; aItemType: TCartItemType = citItem; aQuantity: Extended = 1; aItemPrice: Extended = 0; aOwnerIndex: Integer = -1): Integer;
@@ -601,6 +604,14 @@ end;
 function TDMUnit.GetDeliveryFeeAmount(): Extended;
 begin
   Result:= 0;
+end;
+
+function TDMUnit.MyFormatFloat(aFloat: Extended = 0; aFloatSigns: Integer = 2): string;
+var
+  lFS: TFormatSettings;
+begin
+  lFS.DecimalSeparator:= '.';
+  Result:= FloatToStrF(aFloat, ffFixed, 18, aFloatSigns, lFS);
 end;
 
 end.

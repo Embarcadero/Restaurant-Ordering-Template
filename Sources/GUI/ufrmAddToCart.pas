@@ -131,7 +131,7 @@ begin
   TotalPrice:= 0;
   if CurrentItemID > 0 then
   begin
-    with DMUnit.FDMemTable1 do
+    with DMUnit.MenuListTable do
     begin
       First;
       while not Eof do
@@ -197,7 +197,7 @@ begin
 
     if CurrentItemID > 0 then
     begin
-      with DMUnit.FDMemTable4 do
+      with DMUnit.OptionsListTable do
       begin
         First;
         while not Eof do
@@ -232,7 +232,7 @@ begin
 
     gplCartItemPreview.RowCollection.Items[2].Value:= 60 + (lOptionsCount * 40);
 
-    tTotalSum.Text:= '$' + FloatToStr(TotalPrice);
+    tTotalSum.Text:= '$' + DMUnit.MyFormatFloat(TotalPrice);
     ReCalcGPLHeight();
   end;
 end;
@@ -274,7 +274,7 @@ begin
   begin
     lOwnerIndex:= DMUnit.AddItemToCart(CurrentItemID, 0, ItemName, citItem, Quantity, ItemPrice);
 
-    with DMUnit.FDMemTable4 do
+    with DMUnit.OptionsListTable do
     begin
       First;
       while not Eof do
