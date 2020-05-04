@@ -13,7 +13,7 @@ The main form of the application, at startup, immediately loads and displays the
 
 The forms implemented in this template:
 
-* **GUI**
+* **GUI** ([screenshots](https://github.com/Embarcadero/Restaurant-Ordering-Template/tree/master/Documents))
   * **`ufrmMain`** - The Main Form
   * `ufrmCart` - Cart form
   * `ufrmCoupons` - Discount coupons form
